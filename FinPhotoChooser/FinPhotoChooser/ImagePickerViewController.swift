@@ -222,13 +222,13 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     private func capturePhoto(handler: UIImage -> ()) {
-        doInBackground(q: q) {
+        dispatch_async(q) {
             if let connection = self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
                 connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
                 self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(connection) { (imageDataSampleBuffer, error) in
                     if let buffer = imageDataSampleBuffer {
                         let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
-                        doOnUIThread { handler(UIImage(data: imageData)!) }
+                        dispatch_async(dispatch_get_main_queue()) { handler(UIImage(data: imageData)!) }
                     } else {
                         FLOG.e(error)
                     }
@@ -303,7 +303,7 @@ private class CameraCell: UICollectionViewCell {
     }
     
     private func initView() {
-        doOnUIThread {
+        dispatch_async(dispatch_get_main_queue()) {
             let borderWidth: CGFloat = ImagePickerViewController.borderWidth
             let border = UIView(frame: CGRect(x: self.bounds.size.width - borderWidth, y: 0, width: borderWidth, height: self.bounds.size.height))
             border.backgroundColor = UIColor.whiteColor()
@@ -314,13 +314,5 @@ private class CameraCell: UICollectionViewCell {
             send.center = self.convertPoint(self.center, toView: self.superview)
         }
     }
-}
-
-func doInBackground(q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), task: Task) {
-    dispatch_async(q, task)
-}
-
-func doOnUIThread(task: Task) {
-    dispatch_async(dispatch_get_main_queue(), task)
 }
 
