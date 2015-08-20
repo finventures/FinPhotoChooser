@@ -81,7 +81,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     //  UIViewController Lifecycle
     ///////////////////////////////////////
     
-    override public func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -190,7 +190,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         window.addSubview(pickerContainer)
     }
     
-    func onOutsideTap() {
+    private func onOutsideTap() {
         dismissPicker(true)
     }
     
