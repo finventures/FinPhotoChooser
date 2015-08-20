@@ -229,8 +229,6 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
                     if let buffer = imageDataSampleBuffer {
                         let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
                         dispatch_async(dispatch_get_main_queue()) { handler(UIImage(data: imageData)!) }
-                    } else {
-                        FLOG.e(error)
                     }
                 }
             }
@@ -311,7 +309,7 @@ private class CameraCell: UICollectionViewCell {
             let sendColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
             let send = UIImageView(imageNamed: "ic_send_48pt", color: sendColor)!
             self.contentView.addSubview(send)
-            send.center = self.convertPoint(self.center, toView: self.superview)
+            send.center = self.convertPoint(self.center, toView: self.superview!)
         }
     }
 }
