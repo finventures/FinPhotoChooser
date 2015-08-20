@@ -10,11 +10,11 @@ import UIKit
 import Photos
 import AVFoundation
 
-protocol ImagePickerDelegate {
+public protocol ImagePickerDelegate {
     func didSelectImage(image: UIImage)
 }
 
-class ImagePickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+public class ImagePickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private static let screenSize = UIScreen.mainScreen().bounds.size
     private static let pickerHeight: CGFloat = 280
@@ -31,7 +31,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
     private let window = UIApplication.sharedApplication().keyWindow!
     private let manager = PHImageManager.defaultManager()
     
-    var delegate: ImagePickerDelegate?
+    public var delegate: ImagePickerDelegate?
     
     ///////////////////////////////////////
     // Photo Assets
@@ -39,7 +39,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
     
     private var recentPhotos: [PHAsset] = []
     
-    convenience init() {
+    public convenience init() {
         self.init(nibName: nil, bundle: nil)
         setUp()
     }
@@ -81,7 +81,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
     //  UIViewController Lifecycle
     ///////////////////////////////////////
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -105,11 +105,11 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
     //  CollectionView
     ///////////////////////////////////////
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 2
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(section){
         case 0:
             return 1
@@ -120,7 +120,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CameraCell.reuseIdentifier, forIndexPath: indexPath) as! CameraCell
             let bg = UIView(frame: cell.bounds)
@@ -141,7 +141,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
             capturePhoto { photo in
                 self.delegate?.didSelectImage(photo)
@@ -159,7 +159,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
     // Public API
     /////////////////////////////////////////
     
-    func dismissPicker(animated: Bool) {
+    public func dismissPicker(animated: Bool) {
         UIView.animateWithDuration(0.2, animations: {
             self.backgroundView.alpha = 0
             self.pickerContainer.transform = CGAffineTransformIdentity
@@ -170,7 +170,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-    func show(fromVc vc: UIViewController) {
+    public func show(fromVc vc: UIViewController) {
         vc.presentViewController(self, animated: true, completion: nil)
         UIView.animateWithDuration(0.24) {
             self.backgroundView.alpha = 1
@@ -190,7 +190,7 @@ class ImagePickerViewController: UIViewController, UICollectionViewDataSource, U
         window.addSubview(pickerContainer)
     }
     
-    func onOutsideTap() {
+    private func onOutsideTap() {
         dismissPicker(true)
     }
     
