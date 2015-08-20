@@ -307,9 +307,9 @@ private class CameraCell: UICollectionViewCell {
             border.backgroundColor = UIColor.whiteColor()
             self.contentView.addSubview(border)
             let sendColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
-            let send = UIImageView(imageNamed: "ic_send_48pt", color: sendColor)!
-            self.contentView.addSubview(send)
-            send.center = self.convertPoint(self.center, toView: self.superview!)
+            let send = UIImageView(imageNamed: "ic_send_48pt", color: sendColor)
+            self.contentView.addSubview(send!)
+            send!.center = self.convertPoint(self.center, toView: self.superview)
         }
     }
 }
