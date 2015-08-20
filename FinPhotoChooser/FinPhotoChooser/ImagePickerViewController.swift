@@ -308,7 +308,7 @@ private class CameraCell: UICollectionViewCell {
             self.contentView.addSubview(border)
             let sendColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
             var sendImg = UIImage(named: "ic_send_48pt")!
-            let send = UIImageView(image: sendImg)
+            var send = UIImageView(image: sendImg)
             send = send.imageWithRenderingMode(.AlwaysTemplate)
             send.tintColor = sendColor
             self.contentView.addSubview(send)
