@@ -10,6 +10,7 @@
 		E866CD371B859EB40005C9FF /* FinPhotoChooser.h in Headers */ = {isa = PBXBuildFile; fileRef = E866CD361B859EB40005C9FF /* FinPhotoChooser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E866CD3D1B859EB40005C9FF /* FinPhotoChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E866CD311B859EB40005C9FF /* FinPhotoChooser.framework */; };
 		E866CD441B859EB40005C9FF /* FinPhotoChooserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E866CD431B859EB40005C9FF /* FinPhotoChooserTests.swift */; };
+		E866CD5A1B85ADF00005C9FF /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E866CD591B85ADF00005C9FF /* ImagePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		E866CD3C1B859EB40005C9FF /* FinPhotoChooserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinPhotoChooserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E866CD421B859EB40005C9FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E866CD431B859EB40005C9FF /* FinPhotoChooserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinPhotoChooserTests.swift; sourceTree = "<group>"; };
+		E866CD591B85ADF00005C9FF /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		E866CD331B859EB40005C9FF /* FinPhotoChooser */ = {
 			isa = PBXGroup;
 			children = (
+				E866CD591B85ADF00005C9FF /* ImagePickerViewController.swift */,
 				E866CD361B859EB40005C9FF /* FinPhotoChooser.h */,
 				E866CD341B859EB40005C9FF /* Supporting Files */,
 			);
@@ -209,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E866CD5A1B85ADF00005C9FF /* ImagePickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +327,7 @@
 		E866CD481B859EB40005C9FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -332,12 +337,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		E866CD491B859EB40005C9FF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -399,6 +406,7 @@
 				E866CD491B859EB40005C9FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E866CD4A1B859EB40005C9FF /* Build configuration list for PBXNativeTarget "FinPhotoChooserTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +415,7 @@
 				E866CD4C1B859EB40005C9FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

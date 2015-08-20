@@ -316,3 +316,11 @@ private class CameraCell: UICollectionViewCell {
     }
 }
 
+func doInBackground(q: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), task: Task) {
+    dispatch_async(q, task)
+}
+
+func doOnUIThread(task: Task) {
+    dispatch_async(dispatch_get_main_queue(), task)
+}
+
