@@ -190,7 +190,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         window.addSubview(pickerContainer)
     }
     
-    private func onOutsideTap() {
+    func onOutsideTap() {
         dismissPicker(true)
     }
     
