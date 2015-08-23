@@ -14,7 +14,7 @@ public protocol ImagePickerDelegate {
     func didSelectImage(image: UIImage)
 }
 
-public class ImagePickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+public class ImagePickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
     
     private static let screenSize = UIScreen.mainScreen().bounds.size
     private static let pickerHeight: CGFloat = 280
@@ -203,6 +203,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
         fetchImageAssets()
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
     
     private func fetchImageAssets() {
@@ -215,6 +216,10 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     
     func onOutsideTap() {
         dismissPicker(true)
+    }
+    
+    func photoLibraryDidChange(changeInfo: PHChange!) {
+        
     }
     
     ///////////////////////////////////////
