@@ -62,6 +62,14 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }
     }
     
+    public func photoLibraryDidChange(changeInfo: PHChange!) {
+        fetchImageAssets()
+    }
+    
+    ///////////////////////////////////////
+    // Initialization
+    ///////////////////////////////////////
+    
     public convenience init() {
         self.init(nibName: nil, bundle: nil)
         setUp()
@@ -203,6 +211,13 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
         fetchImageAssets()
+        if PHPhotoLibrary.authorizationStatus() != .Authorized {
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .Authorized {
+                    self.fetchImageAssets()
+                }
+            }
+        }
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
     
@@ -217,10 +232,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     func onOutsideTap() {
         dismissPicker(true)
     }
-    
-    func photoLibraryDidChange(changeInfo: PHChange!) {
-        
-    }
+
     
     ///////////////////////////////////////
     //  Camera
