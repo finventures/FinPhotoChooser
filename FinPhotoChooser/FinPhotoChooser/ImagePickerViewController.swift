@@ -14,7 +14,7 @@ public protocol ImagePickerDelegate {
     func didSelectImage(image: UIImage)
 }
 
-public class ImagePickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+public class ImagePickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
     
     private static let screenSize = UIScreen.mainScreen().bounds.size
     private static let pickerHeight: CGFloat = 280
@@ -61,6 +61,14 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             cachingImageManager.startCachingImagesForAssets(self.recentPhotos, targetSize: targetImageSize, contentMode: .AspectFit, options: nil)
         }
     }
+    
+    public func photoLibraryDidChange(changeInfo: PHChange!) {
+        fetchImageAssets()
+    }
+    
+    ///////////////////////////////////////
+    // Initialization
+    ///////////////////////////////////////
     
     public convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -203,6 +211,14 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
         fetchImageAssets()
+        if PHPhotoLibrary.authorizationStatus() != .Authorized {
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .Authorized {
+                    self.fetchImageAssets()
+                }
+            }
+        }
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
     
     private func fetchImageAssets() {
@@ -216,6 +232,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     func onOutsideTap() {
         dismissPicker(true)
     }
+
     
     ///////////////////////////////////////
     //  Camera
