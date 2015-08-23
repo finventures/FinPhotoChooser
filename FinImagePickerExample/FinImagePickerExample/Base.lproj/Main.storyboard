@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FinImagePickerExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vrf-ta-HRn">
+                                <rect key="frame" x="160" y="100" width="280" height="195"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.34000000000000002" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="3ey-Kp-o2h"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hwr-2e-Nvh">
+                                <rect key="frame" x="160" y="303" width="280" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Em6-iY-u7p"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showChooser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NNR-96-Mou"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.082352941176470587" green="0.11764705882352941" blue="0.14509803921568629" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Vrf-ta-HRn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3pq-Lf-hQz"/>
+                            <constraint firstItem="Hwr-2e-Nvh" firstAttribute="trailing" secondItem="Vrf-ta-HRn" secondAttribute="trailing" id="5Dj-Mp-aci"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Hwr-2e-Nvh" secondAttribute="bottom" constant="252" id="DUU-gh-Ja7"/>
+                            <constraint firstItem="Vrf-ta-HRn" firstAttribute="leading" secondItem="Hwr-2e-Nvh" secondAttribute="leading" id="SkS-oG-Cav"/>
+                            <constraint firstItem="Vrf-ta-HRn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="80" id="eAz-CY-ELY"/>
+                            <constraint firstItem="Hwr-2e-Nvh" firstAttribute="top" secondItem="Vrf-ta-HRn" secondAttribute="bottom" constant="8" symbolic="YES" id="gn2-Sz-Q2m"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="Vrf-ta-HRn" id="11h-SU-bYF"/>
+                        <outlet property="triggerButton" destination="Hwr-2e-Nvh" id="vDV-2O-TQL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
