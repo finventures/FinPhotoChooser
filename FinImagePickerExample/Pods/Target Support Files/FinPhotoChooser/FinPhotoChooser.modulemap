@@ -1,0 +1,6 @@
+framework module FinPhotoChooser {
+  umbrella header "FinPhotoChooser-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -7,17 +7,36 @@
 //
 
 import UIKit
+import FinPhotoChooser
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ImagePickerDelegate {
 
-    @IBOutlet var image: UIView!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var triggerButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 5
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
+        triggerButton.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
+        triggerButton.layer.cornerRadius = 3
+        triggerButton.setTitle("🔥🌄📷🔥", forState: .Normal)
     }
     
     @IBAction func showChooser(sender: AnyObject) {
-        
+        let pc = ImagePickerViewController()
+        pc.delegate = self
+        pc.show(fromVc: self)
+    }
+    
+    func didSelectImage(image: UIImage) {
+        imageView.image = image
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
 }
 
