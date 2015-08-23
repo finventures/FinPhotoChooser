@@ -21,15 +21,19 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     private static let expectedCellWidth: CGFloat = 240
     private static let targetSize = CGSize(width: expectedCellWidth, height: pickerHeight)
     private static let borderWidth: CGFloat = 1
-    private static let maxPhotoCount = 20
+    private static let defaultFetchOptions: PHFetchOptions = {
+        let opts = PHFetchOptions()
+        opts.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
+        return opts
+    }()
     
     private let photoSession = AVCaptureSession()
     private let stillImageOutput = AVCaptureStillImageOutput()
+    private let cachingImageManager = PHCachingImageManager()
     private var captureLayer: AVCaptureVideoPreviewLayer!
     private let q = dispatch_queue_create("camera_load_q", DISPATCH_QUEUE_SERIAL)
     
     private let window = UIApplication.sharedApplication().keyWindow!
-    private let manager = PHImageManager.defaultManager()
     
     public var delegate: ImagePickerDelegate?
     
@@ -37,7 +41,26 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     // Photo Assets
     ///////////////////////////////////////
     
-    private var recentPhotos: [PHAsset] = []
+    var maxPhotoCount = 20 {
+        didSet {
+            fetchImageAssets()
+        }
+    }
+    
+    var targetImageSize: CGSize = PHImageManagerMaximumSize {
+        didSet {
+            cachingImageManager.startCachingImagesForAssets(self.recentPhotos, targetSize: targetImageSize, contentMode: .AspectFit, options: nil)
+        }
+    }
+
+    var recentPhotos: [PHAsset] = [] {
+        willSet {
+            cachingImageManager.stopCachingImagesForAllAssets()
+        }
+        didSet {
+            cachingImageManager.startCachingImagesForAssets(self.recentPhotos, targetSize: targetImageSize, contentMode: .AspectFit, options: nil)
+        }
+    }
     
     public convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -88,15 +111,6 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
         collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
         
-        let opts = PHFetchOptions()
-        opts.sortDescriptors = [
-            NSSortDescriptor(key: "creationDate", ascending: false)
-        ]
-        if let photos = PHAsset.fetchAssetsWithMediaType(.Image, options: opts) {
-            let max = min(ImagePickerViewController.maxPhotoCount, photos.count)
-            let indexes = NSIndexSet(indexesInRange: NSMakeRange(0, max))
-            recentPhotos = photos.objectsAtIndexes(indexes).map { $0 as! PHAsset }
-        }
         pickerContainer.addSubview(collectionView)
         initCamera()
     }
@@ -114,7 +128,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         case 0:
             return 1
         case 1:
-            return min(recentPhotos.count, ImagePickerViewController.maxPhotoCount)
+            return min(recentPhotos.count, maxPhotoCount)
         default:
             fatalError("Don't know about section \(section)")
         }
@@ -130,9 +144,9 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         } else if indexPath.section == 1 {
             var cell = collectionView.dequeueReusableCellWithReuseIdentifier(PhotoCell.reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
             if cell.tag != 0 {
-                manager.cancelImageRequest(PHImageRequestID(cell.tag))
+                cachingImageManager.cancelImageRequest(PHImageRequestID(cell.tag))
             }
-            cell.tag = Int(manager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: ImagePickerViewController.targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
+            cell.tag = Int(cachingImageManager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: ImagePickerViewController.targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
                 cell.image = result
             })
             return cell
@@ -148,7 +162,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             }
         } else if indexPath.section == 1 {
             let asset = recentPhotos[indexPath.row]
-            manager.requestImageForAsset(asset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFit, options: nil) { (result, _) in
+            cachingImageManager.requestImageForAsset(asset, targetSize: targetImageSize, contentMode: .AspectFit, options: nil) { (result, _) in
                 self.delegate?.didSelectImage(result)
             }
         }
@@ -188,6 +202,15 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
+        fetchImageAssets()
+    }
+    
+    private func fetchImageAssets() {
+        if let photos = PHAsset.fetchAssetsWithMediaType(.Image, options: ImagePickerViewController.defaultFetchOptions) {
+            let max = min(maxPhotoCount, photos.count)
+            let indexes = NSIndexSet(indexesInRange: NSMakeRange(0, max))
+            recentPhotos = photos.objectsAtIndexes(indexes).map { $0 as! PHAsset }
+        }
     }
     
     func onOutsideTap() {
