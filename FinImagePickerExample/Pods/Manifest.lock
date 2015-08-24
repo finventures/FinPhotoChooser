@@ -1,10 +1,10 @@
 PODS:
-  - FinPhotoChooser (0.3.3)
+  - FinPhotoChooser (0.3.4)
 
 DEPENDENCIES:
-  - FinPhotoChooser (~> 0.3.3)
+  - FinPhotoChooser (~> 0.3.4)
 
 SPEC CHECKSUMS:
-  FinPhotoChooser: 7bcc6a2e57e94dc05c97a38fdbc1daecbc85a634
+  FinPhotoChooser: ebc3fa0dc25abf60cdae735eedca9078478d8756
 
 COCOAPODS: 0.38.2
