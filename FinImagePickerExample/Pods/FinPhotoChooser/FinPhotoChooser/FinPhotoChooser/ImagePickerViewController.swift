@@ -41,19 +41,19 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     // Photo Assets
     ///////////////////////////////////////
     
-    var maxPhotoCount = 20 {
+    public var maxPhotoCount = 20 {
         didSet {
             fetchImageAssets()
         }
     }
     
-    var targetImageSize: CGSize = PHImageManagerMaximumSize {
+    public var targetImageSize: CGSize = PHImageManagerMaximumSize {
         didSet {
             cachingImageManager.startCachingImagesForAssets(self.recentPhotos, targetSize: targetImageSize, contentMode: .AspectFit, options: nil)
         }
     }
 
-    var recentPhotos: [PHAsset] = [] {
+    public var recentPhotos: [PHAsset] = [] {
         willSet {
             cachingImageManager.stopCachingImagesForAllAssets()
         }
