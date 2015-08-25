@@ -198,6 +198,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     }
     
     public func show(fromVc vc: UIViewController) {
+        collectionView.setContentOffset(CGPointZero, animated: false)
         let window = UIApplication.sharedApplication().keyWindow!
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
