@@ -28,6 +28,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }()
     
     private let photoSession = AVCaptureSession()
+    private let photoSessionPreset: String
     private let stillImageOutput = AVCaptureStillImageOutput()
     private let cachingImageManager = PHCachingImageManager()
     private var captureLayer: AVCaptureVideoPreviewLayer!
@@ -47,11 +48,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }
     }
     
-    public var targetImageSize: CGSize = PHImageManagerMaximumSize {
-        didSet {
-            cachingImageManager.startCachingImagesForAssets(self.recentPhotos, targetSize: targetImageSize, contentMode: .AspectFit, options: nil)
-        }
-    }
+    public let targetImageSize: CGSize
     
     public var recentPhotos: [PHAsset] = [] {
         willSet {
@@ -70,9 +67,15 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     // Initialization
     ///////////////////////////////////////
     
-    public convenience init() {
-        self.init(nibName: nil, bundle: nil)
+    public init(targetImageSize: CGSize = PHImageManagerMaximumSize, cameraPreset: String = AVCaptureSessionPresetPhoto) {
+        self.targetImageSize = targetImageSize
+        self.photoSessionPreset = cameraPreset
+        super.init(nibName: nil, bundle: nil)
         setUp()
+    }
+    
+    required public init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     ///////////////////////////////////////
@@ -172,7 +175,9 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             }
         } else if indexPath.section == 1 {
             let asset = recentPhotos[indexPath.row]
-            cachingImageManager.requestImageForAsset(asset, targetSize: targetImageSize, contentMode: .AspectFit, options: nil) { (result, _) in
+            let syncOpt = PHImageRequestOptions()
+            syncOpt.synchronous = true
+            cachingImageManager.requestImageForAsset(asset, targetSize: targetImageSize, contentMode: .AspectFit, options: syncOpt) { (result, _) in
                 self.delegate?.didSelectImage(result)
             }
         }
@@ -184,7 +189,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     /////////////////////////////////////////
     
     public func dismissPicker(animated: Bool) {
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animateWithDuration(0.18, animations: {
             self.backgroundView.alpha = 0
             self.pickerContainer.transform = CGAffineTransformIdentity
             }) { _ in
@@ -198,7 +203,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
         vc.presentViewController(self, animated: true, completion: nil)
-        UIView.animateWithDuration(0.24) {
+        UIView.animateWithDuration(0.18) {
             self.backgroundView.alpha = 1
             self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -ImagePickerViewController.pickerHeight)
         }
@@ -250,7 +255,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         if photoSession.canAddOutput(stillImageOutput) {
             photoSession.addOutput(stillImageOutput)
         }
-        photoSession.sessionPreset = AVCaptureSessionPresetPhoto
+        photoSession.sessionPreset = photoSessionPreset
         
         photoSession.startRunning()
         captureLayer = AVCaptureVideoPreviewLayer.layerWithSession(photoSession) as! AVCaptureVideoPreviewLayer
