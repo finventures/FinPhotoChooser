@@ -25,7 +25,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         let opts = PHFetchOptions()
         opts.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
         return opts
-    }()
+        }()
     
     private let photoSession = AVCaptureSession()
     private let stillImageOutput = AVCaptureStillImageOutput()
@@ -52,7 +52,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             cachingImageManager.startCachingImagesForAssets(self.recentPhotos, targetSize: targetImageSize, contentMode: .AspectFit, options: nil)
         }
     }
-
+    
     public var recentPhotos: [PHAsset] = [] {
         willSet {
             cachingImageManager.stopCachingImagesForAllAssets()
@@ -118,6 +118,8 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         collectionView.dataSource = self
         collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
         collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
+        view.backgroundColor = UIColor.clearColor()
+        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
         
         pickerContainer.addSubview(collectionView)
         initCamera()
@@ -156,7 +158,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             }
             cell.tag = Int(cachingImageManager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: ImagePickerViewController.targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
                 cell.image = result
-            })
+                })
             return cell
         } else {
             fatalError("Don't know about section \(indexPath.section)")
@@ -193,6 +195,8 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     }
     
     public func show(fromVc vc: UIViewController) {
+        window.addSubview(backgroundView)
+        window.addSubview(pickerContainer)
         vc.presentViewController(self, animated: true, completion: nil)
         UIView.animateWithDuration(0.24) {
             self.backgroundView.alpha = 1
@@ -206,10 +210,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     
     private func setUp() {
         self.modalPresentationStyle = .OverCurrentContext
-        view.backgroundColor = UIColor.clearColor()
-        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
-        window.addSubview(backgroundView)
-        window.addSubview(pickerContainer)
+        
         fetchImageAssets()
         if PHPhotoLibrary.authorizationStatus() != .Authorized {
             PHPhotoLibrary.requestAuthorization { status in
@@ -232,7 +233,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     func onOutsideTap() {
         dismissPicker(true)
     }
-
+    
     
     ///////////////////////////////////////
     //  Camera
