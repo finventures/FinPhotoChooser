@@ -34,8 +34,6 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     private var captureLayer: AVCaptureVideoPreviewLayer!
     private let q = dispatch_queue_create("camera_load_q", DISPATCH_QUEUE_SERIAL)
     
-    private let window = UIApplication.sharedApplication().keyWindow!
-    
     public var delegate: ImagePickerDelegate?
     
     ///////////////////////////////////////
@@ -189,7 +187,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     /////////////////////////////////////////
     
     public func dismissPicker(animated: Bool) {
-        UIView.animateWithDuration(0.18, animations: {
+        UIView.animateWithDuration(0.12, animations: {
             self.backgroundView.alpha = 0
             self.pickerContainer.transform = CGAffineTransformIdentity
             }) { _ in
@@ -200,13 +198,14 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     }
     
     public func show(fromVc vc: UIViewController) {
+        let window = UIApplication.sharedApplication().keyWindow!
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
         vc.presentViewController(self, animated: true, completion: nil)
-        UIView.animateWithDuration(0.18) {
+        UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseOut, animations: {
             self.backgroundView.alpha = 1
             self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -ImagePickerViewController.pickerHeight)
-        }
+            }, completion: nil)
     }
     
     /////////////////////////////////////////
