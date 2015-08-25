@@ -13,9 +13,11 @@ class ViewController: UIViewController, ImagePickerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var triggerButton: UIButton!
+    private let pc = ImagePickerViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        pc.delegate = self
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 5
         imageView.layer.borderWidth = 1
@@ -26,8 +28,6 @@ class ViewController: UIViewController, ImagePickerDelegate {
     }
     
     @IBAction func showChooser(sender: AnyObject) {
-        let pc = ImagePickerViewController()
-        pc.delegate = self
         pc.show(fromVc: self)
     }
     

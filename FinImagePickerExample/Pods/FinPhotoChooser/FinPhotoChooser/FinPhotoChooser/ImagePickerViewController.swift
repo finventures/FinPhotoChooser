@@ -25,15 +25,14 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         let opts = PHFetchOptions()
         opts.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
         return opts
-    }()
+        }()
     
     private let photoSession = AVCaptureSession()
+    private let photoSessionPreset: String
     private let stillImageOutput = AVCaptureStillImageOutput()
     private let cachingImageManager = PHCachingImageManager()
     private var captureLayer: AVCaptureVideoPreviewLayer!
     private let q = dispatch_queue_create("camera_load_q", DISPATCH_QUEUE_SERIAL)
-    
-    private let window = UIApplication.sharedApplication().keyWindow!
     
     public var delegate: ImagePickerDelegate?
     
@@ -47,12 +46,8 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }
     }
     
-    public var targetImageSize: CGSize = PHImageManagerMaximumSize {
-        didSet {
-            cachingImageManager.startCachingImagesForAssets(self.recentPhotos, targetSize: targetImageSize, contentMode: .AspectFit, options: nil)
-        }
-    }
-
+    public let targetImageSize: CGSize
+    
     public var recentPhotos: [PHAsset] = [] {
         willSet {
             cachingImageManager.stopCachingImagesForAllAssets()
@@ -70,9 +65,15 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     // Initialization
     ///////////////////////////////////////
     
-    public convenience init() {
-        self.init(nibName: nil, bundle: nil)
+    public init(targetImageSize: CGSize = PHImageManagerMaximumSize, cameraPreset: String = AVCaptureSessionPresetPhoto) {
+        self.targetImageSize = targetImageSize
+        self.photoSessionPreset = cameraPreset
+        super.init(nibName: nil, bundle: nil)
         setUp()
+    }
+    
+    required public init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     ///////////////////////////////////////
@@ -118,6 +119,8 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         collectionView.dataSource = self
         collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
         collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
+        view.backgroundColor = UIColor.clearColor()
+        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
         
         pickerContainer.addSubview(collectionView)
         initCamera()
@@ -156,7 +159,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             }
             cell.tag = Int(cachingImageManager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: ImagePickerViewController.targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
                 cell.image = result
-            })
+                })
             return cell
         } else {
             fatalError("Don't know about section \(indexPath.section)")
@@ -170,7 +173,9 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             }
         } else if indexPath.section == 1 {
             let asset = recentPhotos[indexPath.row]
-            cachingImageManager.requestImageForAsset(asset, targetSize: targetImageSize, contentMode: .AspectFit, options: nil) { (result, _) in
+            let syncOpt = PHImageRequestOptions()
+            syncOpt.synchronous = true
+            cachingImageManager.requestImageForAsset(asset, targetSize: targetImageSize, contentMode: .AspectFit, options: syncOpt) { (result, _) in
                 self.delegate?.didSelectImage(result)
             }
         }
@@ -182,7 +187,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     /////////////////////////////////////////
     
     public func dismissPicker(animated: Bool) {
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animateWithDuration(0.12, animations: {
             self.backgroundView.alpha = 0
             self.pickerContainer.transform = CGAffineTransformIdentity
             }) { _ in
@@ -193,11 +198,14 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     }
     
     public func show(fromVc vc: UIViewController) {
+        let window = UIApplication.sharedApplication().keyWindow!
+        window.addSubview(backgroundView)
+        window.addSubview(pickerContainer)
         vc.presentViewController(self, animated: true, completion: nil)
-        UIView.animateWithDuration(0.24) {
+        UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseOut, animations: {
             self.backgroundView.alpha = 1
             self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -ImagePickerViewController.pickerHeight)
-        }
+            }, completion: nil)
     }
     
     /////////////////////////////////////////
@@ -206,10 +214,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     
     private func setUp() {
         self.modalPresentationStyle = .OverCurrentContext
-        view.backgroundColor = UIColor.clearColor()
-        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
-        window.addSubview(backgroundView)
-        window.addSubview(pickerContainer)
+        
         fetchImageAssets()
         if PHPhotoLibrary.authorizationStatus() != .Authorized {
             PHPhotoLibrary.requestAuthorization { status in
@@ -232,7 +237,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     func onOutsideTap() {
         dismissPicker(true)
     }
-
+    
     
     ///////////////////////////////////////
     //  Camera
@@ -249,7 +254,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         if photoSession.canAddOutput(stillImageOutput) {
             photoSession.addOutput(stillImageOutput)
         }
-        photoSession.sessionPreset = AVCaptureSessionPresetPhoto
+        photoSession.sessionPreset = photoSessionPreset
         
         photoSession.startRunning()
         captureLayer = AVCaptureVideoPreviewLayer.layerWithSession(photoSession) as! AVCaptureVideoPreviewLayer
