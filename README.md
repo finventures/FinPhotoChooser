@@ -1,10 +1,33 @@
 # FinPhotoChooser
 iOS photo chooser optimized for swiftness
 
-##### Features
+![alt preview](recording.gif)
+
+#### Features
  - Retrieve latest `n` photos from a device's Photos framework
  - Camera preview and capture in line with recent photos
  - Configure image quality
  - Fetched assets cached upon fetch
  
-![alt preview](recording.gif)
+#### Usage
+```swift
+class MyVC: UIViewController, ImagePickerDelegate {
+ 
+ // ...
+ 
+ func showChooser() {
+  let picker = ImagePickerViewController()
+  picker.delegate = self
+  picker.show(fromVc: self) 
+ }
+ 
+ func didSelectImage(image: UIImage) {
+  // do something with selected image
+ }
+}
+```
+
+#### Cocoapods
+Include via your `Podfile`:
+
+`pod 'FinPhotoChooser', '~> 1.0.2'`
