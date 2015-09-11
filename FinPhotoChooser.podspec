@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.name = "FinPhotoChooser"
   s.summary = "iOS photo chooser optimized for swiftness"
   s.requires_arc = true
-  s.version = "1.0.2"
+  s.version = "2.0.0"
   s.license = { :type => "MIT", :file => "LICENSE" }
   s.author = { "Fin Ventures" => "kousun12@gmail.com" }
   s.homepage = "https://www.fin.ventures/"
