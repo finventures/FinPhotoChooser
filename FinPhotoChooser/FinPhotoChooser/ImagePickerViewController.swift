@@ -256,7 +256,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         photoSession.sessionPreset = photoSessionPreset
         
         photoSession.startRunning()
-        captureLayer = AVCaptureVideoPreviewLayer(layer: photoSession)
+        captureLayer = AVCaptureVideoPreviewLayer(session: photoSession)
         captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
     }
     
