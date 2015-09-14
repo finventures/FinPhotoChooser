@@ -7,71 +7,71 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52FC2898122D1545FA099FD58D8E58E5 /* FinPhotoChooser-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 11485FC5559EFFAA8EAA5477ED05E708 /* FinPhotoChooser-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		84D349A47C72F7AC08F5E869EBB019C6 /* FinPhotoChooser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7654BC58486D620CF3F40F37EF8564 /* FinPhotoChooser-dummy.m */; };
+		14231695C990290774DF5C915444443B /* FinPhotoChooserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413885F5FBBC61C3B3DDA6121D40E1A2 /* FinPhotoChooserTests.swift */; };
+		1A3AA1AB0D16A10894C847805B12CFE4 /* FinPhotoChooser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 613165DCC18596168EE5D521FFA68DB3 /* FinPhotoChooser-dummy.m */; };
+		33120BEFF40F9181449E72CD18E94D14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D704023701477121CDB28A2158F0A36F /* Foundation.framework */; };
 		A115FE076F2BF944D4D72F902E23020B /* Pods-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C406C8CBB2D8C9D4EA73B4F297B0C35C /* Pods-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD7D887B25E1D9A6E8A098EA6F52402F /* FinPhotoChooserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E4091133CA37375D5F3836FDE2086C /* FinPhotoChooserTests.swift */; };
+		A93BAEBE3571334DE3F4B062DC375430 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C991A5C6F5DC6343CECB06F239A14B /* ImagePickerViewController.swift */; };
+		C2E9815B553CFAB7B33A98BDE3E2A182 /* ic_send_48pt.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D6F8DD31FD850FC423CAF31260E841 /* ic_send_48pt.png */; };
 		C64B750097587E47B5D65588750F8792 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A3484EDE301C323EDC63489D64F59 /* Pods-dummy.m */; };
-		D10F21DA936BB0F82AE8718B037893EC /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0080FB61A4725D22E8EAEC8984A72236 /* ImagePickerViewController.swift */; };
-		D564E97EF230464D9E5FB0279A36C397 /* ic_send_48pt.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FF1E7CBC6E6C36B010FECDBBA3C5E9 /* ic_send_48pt.png */; };
-		D5E71E87D303A0BB8781D45FB9007058 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59A9FDA4A30CFFBBEB2602F1790BD76 /* UIKit.framework */; };
-		E958E418AF05A94B69097ED49727CFD5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393E9378CF5B1D49510794936248EE9F /* Foundation.framework */; };
-		FBEEC05EE94AF0272C72B140E9AEAEDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393E9378CF5B1D49510794936248EE9F /* Foundation.framework */; };
+		D7FF4525456C4EC67FC934FF9836A145 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82BA7E131E5D1569EDDA3E5100B0E991 /* UIKit.framework */; };
+		EAF84FB6EAA6BF45212CBF535E8DB1CD /* FinPhotoChooser-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 061E398139F36C055FA032359841535D /* FinPhotoChooser-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBEEC05EE94AF0272C72B140E9AEAEDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D704023701477121CDB28A2158F0A36F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2448CEB5B56D9219698B5FF8096786CC /* PBXContainerItemProxy */ = {
+		92D39A074FC224018009A0087C84F7FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DF616A48736F1149ADEBA92FA730E8C;
+			remoteGlobalIDString = AE75487A6953A53DC79806CD2D0D3C73;
 			remoteInfo = FinPhotoChooser;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0080FB61A4725D22E8EAEC8984A72236 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePickerViewController.swift; path = FinPhotoChooser/FinPhotoChooser/ImagePickerViewController.swift; sourceTree = "<group>"; };
 		03FE79A6836F16BF04BC6625729A2B04 /* FinPhotoChooser-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FinPhotoChooser-prefix.pch"; sourceTree = "<group>"; };
-		11485FC5559EFFAA8EAA5477ED05E708 /* FinPhotoChooser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FinPhotoChooser-umbrella.h"; sourceTree = "<group>"; };
-		22CC5AEF4A9E4590515D21DA732EFE4F /* FinPhotoChooser-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "FinPhotoChooser-Private.xcconfig"; sourceTree = "<group>"; };
+		061E398139F36C055FA032359841535D /* FinPhotoChooser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FinPhotoChooser-umbrella.h"; sourceTree = "<group>"; };
+		26C991A5C6F5DC6343CECB06F239A14B /* ImagePickerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePickerViewController.swift; path = FinPhotoChooser/FinPhotoChooser/ImagePickerViewController.swift; sourceTree = "<group>"; };
 		26CFA0F1CCCF115C9794C9F74E87CB41 /* FinPhotoChooser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FinPhotoChooser.modulemap; sourceTree = "<group>"; };
 		2B2A9B06BA7DEE6937C3B5AC02647D94 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		393E9378CF5B1D49510794936248EE9F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3F1A3484EDE301C323EDC63489D64F59 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		51E4091133CA37375D5F3836FDE2086C /* FinPhotoChooserTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FinPhotoChooserTests.swift; path = FinPhotoChooser/FinPhotoChooserTests/FinPhotoChooserTests.swift; sourceTree = "<group>"; };
-		60D3AEBAE7A102BC535A68088326D139 /* FinPhotoChooser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FinPhotoChooser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		413885F5FBBC61C3B3DDA6121D40E1A2 /* FinPhotoChooserTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FinPhotoChooserTests.swift; path = FinPhotoChooser/FinPhotoChooserTests/FinPhotoChooserTests.swift; sourceTree = "<group>"; };
+		47F584F75D0326F5C2DD648340C22423 /* FinPhotoChooser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FinPhotoChooser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		613165DCC18596168EE5D521FFA68DB3 /* FinPhotoChooser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FinPhotoChooser-dummy.m"; sourceTree = "<group>"; };
 		6AD163F3F8586CD2A84CA5452533E96B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
 		79A9DEDC89FE8336BF5FEDAAF75BF7FC /* Pods.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Pods.modulemap; sourceTree = "<group>"; };
+		82BA7E131E5D1569EDDA3E5100B0E991 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		82D6F8DD31FD850FC423CAF31260E841 /* ic_send_48pt.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = ic_send_48pt.png; path = FinPhotoChooser/FinPhotoChooser/ic_send_48pt.png; sourceTree = "<group>"; };
 		87B213035BAC5F75386F62D3C75D2342 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		87FF1E7CBC6E6C36B010FECDBBA3C5E9 /* ic_send_48pt.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = ic_send_48pt.png; path = FinPhotoChooser/FinPhotoChooser/ic_send_48pt.png; sourceTree = "<group>"; };
 		A95322CCDDAE8E9C533CB32A149AADD9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		B59A9FDA4A30CFFBBEB2602F1790BD76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		B5888400DDFA1F8DE2FB02EE540EC273 /* FinPhotoChooser-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "FinPhotoChooser-Private.xcconfig"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C406C8CBB2D8C9D4EA73B4F297B0C35C /* Pods-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-umbrella.h"; sourceTree = "<group>"; };
 		CBC0F7C552B739C909B650A0F42F7F38 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
 		D0405803033A2A777B8E4DFA0C1800ED /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D704023701477121CDB28A2158F0A36F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		E48774CB499A3DF11565145583AB661A /* FinPhotoChooser.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FinPhotoChooser.xcconfig; sourceTree = "<group>"; };
 		E7F21354943D9F42A70697D5A5EF72E9 /* Pods-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-frameworks.sh"; sourceTree = "<group>"; };
 		E8446514FBAD26C0E18F24A5715AEF67 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F563616C7C79DA429FFD9690919DB196 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE7654BC58486D620CF3F40F37EF8564 /* FinPhotoChooser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FinPhotoChooser-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3628DB55206800E575218301E6A9CBF3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E958E418AF05A94B69097ED49727CFD5 /* Foundation.framework in Frameworks */,
-				D5E71E87D303A0BB8781D45FB9007058 /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		70CA2B05C701FF77EA1DFA345B1A9CA5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FBEEC05EE94AF0272C72B140E9AEAEDB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D48730836453FEDFBAC13AD15E0C4D4A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				33120BEFF40F9181449E72CD18E94D14 /* Foundation.framework in Frameworks */,
+				D7FF4525456C4EC67FC934FF9836A145 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +81,7 @@
 		2500C99FDB54E6C46B505883E66FA35A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				87FF1E7CBC6E6C36B010FECDBBA3C5E9 /* ic_send_48pt.png */,
+				82D6F8DD31FD850FC423CAF31260E841 /* ic_send_48pt.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -136,10 +136,10 @@
 			children = (
 				26CFA0F1CCCF115C9794C9F74E87CB41 /* FinPhotoChooser.modulemap */,
 				E48774CB499A3DF11565145583AB661A /* FinPhotoChooser.xcconfig */,
-				22CC5AEF4A9E4590515D21DA732EFE4F /* FinPhotoChooser-Private.xcconfig */,
-				FE7654BC58486D620CF3F40F37EF8564 /* FinPhotoChooser-dummy.m */,
+				B5888400DDFA1F8DE2FB02EE540EC273 /* FinPhotoChooser-Private.xcconfig */,
+				613165DCC18596168EE5D521FFA68DB3 /* FinPhotoChooser-dummy.m */,
 				03FE79A6836F16BF04BC6625729A2B04 /* FinPhotoChooser-prefix.pch */,
-				11485FC5559EFFAA8EAA5477ED05E708 /* FinPhotoChooser-umbrella.h */,
+				061E398139F36C055FA032359841535D /* FinPhotoChooser-umbrella.h */,
 				F563616C7C79DA429FFD9690919DB196 /* Info.plist */,
 			);
 			name = "Support Files";
@@ -149,8 +149,8 @@
 		9AD37555E01861A81C8BB57E91EEF7BA /* FinPhotoChooser */ = {
 			isa = PBXGroup;
 			children = (
-				51E4091133CA37375D5F3836FDE2086C /* FinPhotoChooserTests.swift */,
-				0080FB61A4725D22E8EAEC8984A72236 /* ImagePickerViewController.swift */,
+				413885F5FBBC61C3B3DDA6121D40E1A2 /* FinPhotoChooserTests.swift */,
+				26C991A5C6F5DC6343CECB06F239A14B /* ImagePickerViewController.swift */,
 				2500C99FDB54E6C46B505883E66FA35A /* Resources */,
 				8E666984F441764AA1140A1F3F29F704 /* Support Files */,
 			);
@@ -168,7 +168,7 @@
 		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				60D3AEBAE7A102BC535A68088326D139 /* FinPhotoChooser.framework */,
+				47F584F75D0326F5C2DD648340C22423 /* FinPhotoChooser.framework */,
 				2B2A9B06BA7DEE6937C3B5AC02647D94 /* Pods.framework */,
 			);
 			name = Products;
@@ -177,8 +177,8 @@
 		D0FB9306D21AF23A056944AE037CBFFF /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				393E9378CF5B1D49510794936248EE9F /* Foundation.framework */,
-				B59A9FDA4A30CFFBBEB2602F1790BD76 /* UIKit.framework */,
+				D704023701477121CDB28A2158F0A36F /* Foundation.framework */,
+				82BA7E131E5D1569EDDA3E5100B0E991 /* UIKit.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -186,14 +186,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		12B858FB847B417E947B670DB9A48A30 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				52FC2898122D1545FA099FD58D8E58E5 /* FinPhotoChooser-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BA60BC2E32FAB085949A8BFFFAA9BD55 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -202,27 +194,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EC2724D5B4E08145DCDEF04FD66F1002 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAF84FB6EAA6BF45212CBF535E8DB1CD /* FinPhotoChooser-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DF616A48736F1149ADEBA92FA730E8C /* FinPhotoChooser */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9FFFFAB5652F88F53B6666BA416FBCE1 /* Build configuration list for PBXNativeTarget "FinPhotoChooser" */;
-			buildPhases = (
-				79821B0F7A9A7EF6C9CD68A69F1AC088 /* Sources */,
-				3628DB55206800E575218301E6A9CBF3 /* Frameworks */,
-				E730EDDE060268DB733A70BB3061C0C0 /* Resources */,
-				12B858FB847B417E947B670DB9A48A30 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = FinPhotoChooser;
-			productName = FinPhotoChooser;
-			productReference = 60D3AEBAE7A102BC535A68088326D139 /* FinPhotoChooser.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		A157AF93B1C1ACF0586D34F622463AFA /* Pods */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 295B8663BB9A874DFBB236C2669FC94D /* Build configuration list for PBXNativeTarget "Pods" */;
@@ -234,11 +216,29 @@
 			buildRules = (
 			);
 			dependencies = (
-				0F0E78375FA87F54445800C487A76664 /* PBXTargetDependency */,
+				0E61D422A9D5F070666EC86A4C81F0F8 /* PBXTargetDependency */,
 			);
 			name = Pods;
 			productName = Pods;
 			productReference = 2B2A9B06BA7DEE6937C3B5AC02647D94 /* Pods.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AE75487A6953A53DC79806CD2D0D3C73 /* FinPhotoChooser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59747A59558B5D465DB084E4C0860B0B /* Build configuration list for PBXNativeTarget "FinPhotoChooser" */;
+			buildPhases = (
+				F66E7416BBC1D3AE5E1875662DB8A6DA /* Sources */,
+				D48730836453FEDFBAC13AD15E0C4D4A /* Frameworks */,
+				A87D55430BBEC765C40D53EBC8369F1B /* Resources */,
+				EC2724D5B4E08145DCDEF04FD66F1002 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FinPhotoChooser;
+			productName = FinPhotoChooser;
+			productReference = 47F584F75D0326F5C2DD648340C22423 /* FinPhotoChooser.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -262,18 +262,18 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DF616A48736F1149ADEBA92FA730E8C /* FinPhotoChooser */,
+				AE75487A6953A53DC79806CD2D0D3C73 /* FinPhotoChooser */,
 				A157AF93B1C1ACF0586D34F622463AFA /* Pods */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E730EDDE060268DB733A70BB3061C0C0 /* Resources */ = {
+		A87D55430BBEC765C40D53EBC8369F1B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D564E97EF230464D9E5FB0279A36C397 /* ic_send_48pt.png in Resources */,
+				C2E9815B553CFAB7B33A98BDE3E2A182 /* ic_send_48pt.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,63 +288,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		79821B0F7A9A7EF6C9CD68A69F1AC088 /* Sources */ = {
+		F66E7416BBC1D3AE5E1875662DB8A6DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D349A47C72F7AC08F5E869EBB019C6 /* FinPhotoChooser-dummy.m in Sources */,
-				BD7D887B25E1D9A6E8A098EA6F52402F /* FinPhotoChooserTests.swift in Sources */,
-				D10F21DA936BB0F82AE8718B037893EC /* ImagePickerViewController.swift in Sources */,
+				1A3AA1AB0D16A10894C847805B12CFE4 /* FinPhotoChooser-dummy.m in Sources */,
+				14231695C990290774DF5C915444443B /* FinPhotoChooserTests.swift in Sources */,
+				A93BAEBE3571334DE3F4B062DC375430 /* ImagePickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0F0E78375FA87F54445800C487A76664 /* PBXTargetDependency */ = {
+		0E61D422A9D5F070666EC86A4C81F0F8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FinPhotoChooser;
-			target = 8DF616A48736F1149ADEBA92FA730E8C /* FinPhotoChooser */;
-			targetProxy = 2448CEB5B56D9219698B5FF8096786CC /* PBXContainerItemProxy */;
+			target = AE75487A6953A53DC79806CD2D0D3C73 /* FinPhotoChooser */;
+			targetProxy = 92D39A074FC224018009A0087C84F7FF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		019593F23A8196FE93BA48B8626E3AC2 /* Release */ = {
+		04B85DC27A0AACA02926D9A6599040C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22CC5AEF4A9E4590515D21DA732EFE4F /* FinPhotoChooser-Private.xcconfig */;
+			baseConfigurationReference = B5888400DDFA1F8DE2FB02EE540EC273 /* FinPhotoChooser-Private.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 2.0.1;
 				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/FinPhotoChooser/FinPhotoChooser-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FinPhotoChooser/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FinPhotoChooser/FinPhotoChooser.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = FinPhotoChooser;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		36242D5944280D5DD1BAA58DD265653F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22CC5AEF4A9E4590515D21DA732EFE4F /* FinPhotoChooser-Private.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1.0.1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 2;
 				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -463,6 +436,33 @@
 			};
 			name = Debug;
 		};
+		DC5FB59D51A5343D3BAA49909871D5BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5888400DDFA1F8DE2FB02EE540EC273 /* FinPhotoChooser-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2.0.1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 2;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/FinPhotoChooser/FinPhotoChooser-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FinPhotoChooser/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FinPhotoChooser/FinPhotoChooser.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = FinPhotoChooser;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		FB45FFD90572718D82AB9092B750F0CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -518,11 +518,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FFFFAB5652F88F53B6666BA416FBCE1 /* Build configuration list for PBXNativeTarget "FinPhotoChooser" */ = {
+		59747A59558B5D465DB084E4C0860B0B /* Build configuration list for PBXNativeTarget "FinPhotoChooser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				36242D5944280D5DD1BAA58DD265653F /* Debug */,
-				019593F23A8196FE93BA48B8626E3AC2 /* Release */,
+				04B85DC27A0AACA02926D9A6599040C4 /* Debug */,
+				DC5FB59D51A5343D3BAA49909871D5BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

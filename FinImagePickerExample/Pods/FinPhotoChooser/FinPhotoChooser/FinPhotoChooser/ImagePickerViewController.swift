@@ -57,7 +57,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }
     }
     
-    public func photoLibraryDidChange(changeInfo: PHChange!) {
+    public func photoLibraryDidChange(changeInfo: PHChange) {
         fetchImageAssets()
     }
     
@@ -153,7 +153,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             showCameraPreview(cell.backgroundView!.layer)
             return cell
         } else if indexPath.section == 1 {
-            var cell = collectionView.dequeueReusableCellWithReuseIdentifier(PhotoCell.reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PhotoCell.reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
             if cell.tag != 0 {
                 cachingImageManager.cancelImageRequest(PHImageRequestID(cell.tag))
             }
@@ -176,7 +176,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             let syncOpt = PHImageRequestOptions()
             syncOpt.synchronous = true
             cachingImageManager.requestImageForAsset(asset, targetSize: targetImageSize, contentMode: .AspectFit, options: syncOpt) { (result, _) in
-                self.delegate?.didSelectImage(result)
+                self.delegate?.didSelectImage(result!)
             }
         }
         dismissPicker(false)
@@ -198,6 +198,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     }
     
     public func show(fromVc vc: UIViewController) {
+        collectionView.setContentOffset(CGPointZero, animated: false)
         let window = UIApplication.sharedApplication().keyWindow!
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
@@ -227,11 +228,10 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     }
     
     private func fetchImageAssets() {
-        if let photos = PHAsset.fetchAssetsWithMediaType(.Image, options: ImagePickerViewController.defaultFetchOptions) {
-            let max = min(maxPhotoCount, photos.count)
-            let indexes = NSIndexSet(indexesInRange: NSMakeRange(0, max))
-            recentPhotos = photos.objectsAtIndexes(indexes).map { $0 as! PHAsset }
-        }
+        let photos = PHAsset.fetchAssetsWithMediaType(.Image, options: ImagePickerViewController.defaultFetchOptions)
+        let max = min(maxPhotoCount, photos.count)
+        let indexes = NSIndexSet(indexesInRange: NSMakeRange(0, max))
+        recentPhotos = photos.objectsAtIndexes(indexes).map { $0 as! PHAsset }
     }
     
     func onOutsideTap() {
@@ -245,9 +245,8 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     
     private func initCamera() {
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        let input = AVCaptureDeviceInput(device: device, error: nil)
         
-        if let input = input {
+        if let input = try? AVCaptureDeviceInput(device: device) {
             photoSession.addInput(input)
         }
         stillImageOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
@@ -257,7 +256,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         photoSession.sessionPreset = photoSessionPreset
         
         photoSession.startRunning()
-        captureLayer = AVCaptureVideoPreviewLayer.layerWithSession(photoSession) as! AVCaptureVideoPreviewLayer
+        captureLayer = AVCaptureVideoPreviewLayer(session: photoSession)
         captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
     }
     
@@ -271,7 +270,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             if let connection = self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
                 connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
                 self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(connection) { (imageDataSampleBuffer, error) in
-                    if let buffer = imageDataSampleBuffer {
+                    if let _ = imageDataSampleBuffer {
                         let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
                         dispatch_async(dispatch_get_main_queue()) { handler(UIImage(data: imageData)!) }
                     }
@@ -283,7 +282,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     
     private func imageFromCaptureLayer() -> UIImage {
         UIGraphicsBeginImageContext(captureLayer.frame.size)
-        captureLayer.renderInContext(UIGraphicsGetCurrentContext())
+        captureLayer.renderInContext(UIGraphicsGetCurrentContext()!)
         return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
@@ -302,7 +301,7 @@ private class PhotoCell: UICollectionViewCell {
         backgroundColor = UIColor.whiteColor()
         imageView.contentMode = .ScaleAspectFit
         
-        imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         
         addConstraint(NSLayoutConstraint(item: imageView, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: 0))
@@ -313,7 +312,7 @@ private class PhotoCell: UICollectionViewCell {
         layoutIfNeeded()
     }
     
-    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes! {
+    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         let attr = UICollectionViewLayoutAttributes()
         let imageSize = imageView.image!.size
         let scalar = imageView.bounds.size.height / imageSize.height
@@ -335,7 +334,7 @@ private class CameraCell: UICollectionViewCell {
         initView()
     }
     
-    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes! {
+    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         let attr = UICollectionViewLayoutAttributes()
         attr.size = CGSize(width: ImagePickerViewController.expectedCellWidth, height: bounds.size.height)
         return attr
@@ -353,9 +352,9 @@ private class CameraCell: UICollectionViewCell {
             self.contentView.addSubview(border)
             let sendColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
             var sendImg = UIImage(named: "ic_send_48pt.png", inBundle: NSBundle(forClass: ImagePickerViewController.self), compatibleWithTraitCollection: nil)!
-            sendImg = UIImage(CGImage: sendImg.CGImage, scale: 3, orientation: sendImg.imageOrientation)!
+            sendImg = UIImage(CGImage: sendImg.CGImage!, scale: 3, orientation: sendImg.imageOrientation)
             sendImg = sendImg.imageWithRenderingMode(.AlwaysTemplate)
-            var send = UIImageView(image: sendImg)
+            let send = UIImageView(image: sendImg)
             send.tintColor = sendColor
             self.contentView.addSubview(send)
             send.center = self.convertPoint(self.center, toView: self.superview)
