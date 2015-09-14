@@ -198,6 +198,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     }
     
     public func show(fromVc vc: UIViewController) {
+        fetchImageAssets()
         collectionView.setContentOffset(CGPointZero, animated: false)
         let window = UIApplication.sharedApplication().keyWindow!
         window.addSubview(backgroundView)
@@ -215,7 +216,6 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     
     private func setUp() {
         self.modalPresentationStyle = .OverCurrentContext
-        
         fetchImageAssets()
         if PHPhotoLibrary.authorizationStatus() != .Authorized {
             PHPhotoLibrary.requestAuthorization { status in
@@ -232,6 +232,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         let max = min(maxPhotoCount, photos.count)
         let indexes = NSIndexSet(indexesInRange: NSMakeRange(0, max))
         recentPhotos = photos.objectsAtIndexes(indexes).map { $0 as! PHAsset }
+        collectionView.reloadData()
     }
     
     func onOutsideTap() {
