@@ -8,6 +8,7 @@ iOS photo chooser optimized for swiftness
  - Camera preview and capture in line with recent photos
  - Configure image quality
  - Fetched assets cached upon fetch
+ - Photos framework permissions
  
 #### Usage
 ```swift
