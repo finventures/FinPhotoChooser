@@ -11,6 +11,7 @@ iOS photo chooser optimized for swiftness
  - Photos framework permissions
  
 #### Usage
+(requires Xcode 7, written with Swift 2)
 ```swift
 class MyVC: UIViewController, ImagePickerDelegate {
  
