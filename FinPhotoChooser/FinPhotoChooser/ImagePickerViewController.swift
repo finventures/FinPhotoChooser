@@ -90,8 +90,9 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }()
     
     private var backgroundView: UIView = {
-        let v = UIView(frame: UIScreen.mainScreen().bounds)
-        v.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+        let blurEffect = UIBlurEffect(style: .Dark)
+        let v = UIVisualEffectView(effect: blurEffect)
+        v.frame = UIScreen.mainScreen().bounds
         v.alpha = 0
         v.userInteractionEnabled = true
         return v
@@ -187,7 +188,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     /////////////////////////////////////////
     
     public func dismissPicker(animated: Bool) {
-        UIView.animateWithDuration(0.12, animations: {
+        UIView.animateWithDuration(0.2, animations: {
             self.backgroundView.alpha = 0
             self.pickerContainer.transform = CGAffineTransformIdentity
             }) { _ in
@@ -204,7 +205,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
         vc.presentViewController(self, animated: true, completion: nil)
-        UIView.animateWithDuration(0.12, delay: 0, options: .CurveEaseOut, animations: {
+        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseOut, animations: {
             self.backgroundView.alpha = 1
             self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -ImagePickerViewController.pickerHeight)
             }, completion: nil)
