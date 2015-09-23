@@ -8,8 +8,10 @@ iOS photo chooser optimized for swiftness
  - Camera preview and capture in line with recent photos
  - Configure image quality
  - Fetched assets cached upon fetch
+ - Photos framework permissions
  
 #### Usage
+(requires Xcode 7, written with Swift 2)
 ```swift
 class MyVC: UIViewController, ImagePickerDelegate {
  
@@ -30,4 +32,4 @@ class MyVC: UIViewController, ImagePickerDelegate {
 #### Cocoapods
 Include via your `Podfile`:
 
-`pod 'FinPhotoChooser', '~> 1.0.2'`
+`pod 'FinPhotoChooser', '~> 2.0.2'`
