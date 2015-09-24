@@ -21,6 +21,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     private static let expectedCellWidth: CGFloat = 240
     private static let targetSize = CGSize(width: expectedCellWidth, height: pickerHeight)
     private static let borderWidth: CGFloat = 1
+    private static let bgColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
     private static let defaultFetchOptions: PHFetchOptions = {
         let opts = PHFetchOptions()
         opts.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
@@ -82,7 +83,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     
     private let pickerContainer: UIView = {
         let v = UIView(frame: CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: pickerHeight))
-        v.backgroundColor = UIColor.whiteColor()
+        v.backgroundColor = ImagePickerViewController.bgColor
         v.layer.shadowRadius = 2
         v.layer.shadowOpacity = 0.1
         v.layer.shadowColor = UIColor.blackColor().CGColor
@@ -90,9 +91,8 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }()
     
     private var backgroundView: UIView = {
-        let blurEffect = UIBlurEffect(style: .Dark)
-        let v = UIVisualEffectView(effect: blurEffect)
-        v.frame = UIScreen.mainScreen().bounds
+        let v = UIView(frame: UIScreen.mainScreen().bounds)
+        v.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
         v.alpha = 0
         v.userInteractionEnabled = true
         return v
@@ -105,7 +105,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         layout.minimumInteritemSpacing = borderWidth
         layout.minimumLineSpacing = 0
         var cv = UICollectionView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: pickerHeight), collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.whiteColor()
+        cv.backgroundColor = ImagePickerViewController.bgColor
         return cv
         }()
     
@@ -192,7 +192,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             self.backgroundView.alpha = 0
             self.pickerContainer.transform = CGAffineTransformIdentity
             }) { _ in
-                self.dismissViewControllerAnimated(animated, completion: nil)
+                self.dismissViewControllerAnimated(false, completion: nil)
                 self.pickerContainer.removeFromSuperview()
                 self.backgroundView.removeFromSuperview()
         }
@@ -204,8 +204,8 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         let window = UIApplication.sharedApplication().keyWindow!
         window.addSubview(backgroundView)
         window.addSubview(pickerContainer)
-        vc.presentViewController(self, animated: true, completion: nil)
-        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseOut, animations: {
+        vc.presentViewController(self, animated: false, completion: nil)
+        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: {
             self.backgroundView.alpha = 1
             self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -ImagePickerViewController.pickerHeight)
             }, completion: nil)
@@ -300,7 +300,7 @@ private class PhotoCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = ImagePickerViewController.bgColor
         imageView.contentMode = .ScaleAspectFit
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -350,7 +350,7 @@ private class CameraCell: UICollectionViewCell {
         dispatch_async(dispatch_get_main_queue()) {
             let borderWidth: CGFloat = ImagePickerViewController.borderWidth
             let border = UIView(frame: CGRect(x: self.bounds.size.width - borderWidth, y: 0, width: borderWidth, height: self.bounds.size.height))
-            border.backgroundColor = UIColor.whiteColor()
+            border.backgroundColor = ImagePickerViewController.bgColor
             self.contentView.addSubview(border)
             let sendColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
             var sendImg = UIImage(named: "ic_send_48pt.png", inBundle: NSBundle(forClass: ImagePickerViewController.self), compatibleWithTraitCollection: nil)!
