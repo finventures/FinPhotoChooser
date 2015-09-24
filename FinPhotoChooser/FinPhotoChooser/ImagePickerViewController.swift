@@ -114,17 +114,23 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     //  UIViewController Lifecycle
     ///////////////////////////////////////
     
+    public override func loadView() {
+        super.loadView()
+        initCamera()
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
-        collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
-        view.backgroundColor = UIColor.clearColor()
-        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
-        
-        pickerContainer.addSubview(collectionView)
-        initCamera()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
+            self.collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
+            self.collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
+            self.view.backgroundColor = UIColor.clearColor()
+            self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
+            
+            self.pickerContainer.addSubview(self.collectionView)
+        }
     }
     
     ///////////////////////////////////////
