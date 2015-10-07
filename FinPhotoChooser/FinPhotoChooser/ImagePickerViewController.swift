@@ -15,11 +15,9 @@ public protocol ImagePickerDelegate {
 }
 
 public class ImagePickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
-    
+
     private static let screenSize = UIScreen.mainScreen().bounds.size
-    private static let pickerHeight: CGFloat = 280
     private static let expectedCellWidth: CGFloat = 240
-    private static let targetSize = CGSize(width: expectedCellWidth, height: pickerHeight)
     private static let borderWidth: CGFloat = 1
     private static let bgColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
     private static let defaultFetchOptions: PHFetchOptions = {
@@ -27,28 +25,31 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         opts.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
         return opts
         }()
-    
+
+    private let pickerHeight: CGFloat
+    private var targetSize: CGSize { return CGSize(width: ImagePickerViewController.expectedCellWidth, height: pickerHeight) }
     private let photoSession = AVCaptureSession()
     private let photoSessionPreset: String
     private let stillImageOutput = AVCaptureStillImageOutput()
     private let cachingImageManager = PHCachingImageManager()
     private var captureLayer: AVCaptureVideoPreviewLayer!
     private let q = dispatch_queue_create("camera_load_q", DISPATCH_QUEUE_SERIAL)
-    
+    private var dismissOnTap: Bool
+
     public var delegate: ImagePickerDelegate?
-    
+
     ///////////////////////////////////////
     // Photo Assets
     ///////////////////////////////////////
-    
+
     public var maxPhotoCount = 20 {
         didSet {
             fetchImageAssets()
         }
     }
-    
+
     public let targetImageSize: CGSize
-    
+
     public var recentPhotos: [PHAsset] = [] {
         willSet {
             cachingImageManager.stopCachingImagesForAllAssets()
@@ -57,39 +58,43 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             cachingImageManager.startCachingImagesForAssets(self.recentPhotos, targetSize: targetImageSize, contentMode: .AspectFit, options: nil)
         }
     }
-    
+
     public func photoLibraryDidChange(changeInfo: PHChange) {
         fetchImageAssets()
     }
-    
+
     ///////////////////////////////////////
     // Initialization
     ///////////////////////////////////////
-    
-    public init(targetImageSize: CGSize = PHImageManagerMaximumSize, cameraPreset: String = AVCaptureSessionPresetPhoto) {
+
+    public init(targetImageSize: CGSize = PHImageManagerMaximumSize, cameraPreset: String = AVCaptureSessionPresetPhoto, pickerHeight: CGFloat = 280, dismissOnTap: Bool = true) {
+        self.dismissOnTap = dismissOnTap
         self.targetImageSize = targetImageSize
         self.photoSessionPreset = cameraPreset
+        self.pickerHeight = pickerHeight
+
         super.init(nibName: nil, bundle: nil)
+
         setUp()
     }
-    
+
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     ///////////////////////////////////////
     // Views
     ///////////////////////////////////////
-    
+
     private let pickerContainer: UIView = {
-        let v = UIView(frame: CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: pickerHeight))
+        let v = UIView(frame: .zero)
         v.backgroundColor = ImagePickerViewController.bgColor
         v.layer.shadowRadius = 2
         v.layer.shadowOpacity = 0.1
         v.layer.shadowColor = UIColor.blackColor().CGColor
         return v
         }()
-    
+
     private var backgroundView: UIView = {
         let v = UIView(frame: UIScreen.mainScreen().bounds)
         v.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
@@ -97,28 +102,27 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         v.userInteractionEnabled = true
         return v
         }()
-    
+
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .Horizontal
-        layout.estimatedItemSize = targetSize
         layout.minimumInteritemSpacing = borderWidth
         layout.minimumLineSpacing = 0
-        var cv = UICollectionView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: pickerHeight), collectionViewLayout: layout)
+        var cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = ImagePickerViewController.bgColor
         return cv
         }()
-    
-    
+
+
     ///////////////////////////////////////
     //  UIViewController Lifecycle
     ///////////////////////////////////////
-    
+
     public override func loadView() {
         super.loadView()
         initCamera()
     }
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         dispatch_async(dispatch_get_main_queue()) {
@@ -128,19 +132,19 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             self.collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
             self.view.backgroundColor = UIColor.clearColor()
             self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
-            
+
             self.pickerContainer.addSubview(self.collectionView)
         }
     }
-    
+
     ///////////////////////////////////////
     //  CollectionView
     ///////////////////////////////////////
-    
+
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 2
     }
-    
+
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(section){
         case 0:
@@ -151,7 +155,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             fatalError("Don't know about section \(section)")
         }
     }
-    
+
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CameraCell.reuseIdentifier, forIndexPath: indexPath) as! CameraCell
@@ -164,7 +168,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             if cell.tag != 0 {
                 cachingImageManager.cancelImageRequest(PHImageRequestID(cell.tag))
             }
-            cell.tag = Int(cachingImageManager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: ImagePickerViewController.targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
+            cell.tag = Int(cachingImageManager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
                 cell.image = result
                 })
             return cell
@@ -172,7 +176,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             fatalError("Don't know about section \(indexPath.section)")
         }
     }
-    
+
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
             capturePhoto { photo in
@@ -188,11 +192,11 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }
         dismissPicker(false)
     }
-    
+
     /////////////////////////////////////////
     // Public API
     /////////////////////////////////////////
-    
+
     public func dismissPicker(animated: Bool) {
         UIView.animateWithDuration(0.2, animations: {
             self.backgroundView.alpha = 0
@@ -203,24 +207,24 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
                 self.backgroundView.removeFromSuperview()
         }
     }
-    
+
     public func show(fromVc vc: UIViewController) {
         fetchImageAssets()
         collectionView.setContentOffset(CGPointZero, animated: false)
         let window = UIApplication.sharedApplication().keyWindow!
-        window.addSubview(backgroundView)
+        if self.dismissOnTap { window.addSubview(backgroundView) }
         window.addSubview(pickerContainer)
         vc.presentViewController(self, animated: false, completion: nil)
         UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: {
             self.backgroundView.alpha = 1
-            self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -ImagePickerViewController.pickerHeight)
+            self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -self.pickerHeight)
             }, completion: nil)
     }
-    
+
     /////////////////////////////////////////
     // Private Helper
     /////////////////////////////////////////
-    
+
     private func setUp() {
         self.modalPresentationStyle = .OverCurrentContext
         fetchImageAssets()
@@ -232,8 +236,17 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             }
         }
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+
+        let ss = ImagePickerViewController.screenSize
+        pickerContainer.frame = CGRect(x: 0, y: ss.height, width: ss.width, height: pickerHeight)
+        collectionView.frame = CGRect(x: 0, y: 0, width: ss.width, height: pickerHeight)
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = CGSize(width: ImagePickerViewController.expectedCellWidth, height: pickerHeight)
+
+        if !dismissOnTap {
+            pickerContainer.layer.shadowOpacity = 0.0
+        }
     }
-    
+
     private func fetchImageAssets() {
         let photos = PHAsset.fetchAssetsWithMediaType(.Image, options: ImagePickerViewController.defaultFetchOptions)
         let max = min(maxPhotoCount, photos.count)
@@ -241,19 +254,19 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         recentPhotos = photos.objectsAtIndexes(indexes).map { $0 as! PHAsset }
         collectionView.reloadData()
     }
-    
+
     func onOutsideTap() {
         dismissPicker(true)
     }
-    
-    
+
+
     ///////////////////////////////////////
     //  Camera
     ///////////////////////////////////////
-    
+
     private func initCamera() {
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        
+
         if let input = try? AVCaptureDeviceInput(device: device) {
             photoSession.addInput(input)
         }
@@ -262,17 +275,17 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             photoSession.addOutput(stillImageOutput)
         }
         photoSession.sessionPreset = photoSessionPreset
-        
+
         photoSession.startRunning()
         captureLayer = AVCaptureVideoPreviewLayer(session: photoSession)
         captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
     }
-    
+
     private func showCameraPreview(layer: CALayer) {
         captureLayer.frame = layer.bounds
         layer.addSublayer(self.captureLayer)
     }
-    
+
     private func capturePhoto(handler: UIImage -> ()) {
         dispatch_async(q) {
             if let connection = self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
@@ -285,9 +298,9 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
                 }
             }
         }
-        
+
     }
-    
+
     private func imageFromCaptureLayer() -> UIImage {
         UIGraphicsBeginImageContext(captureLayer.frame.size)
         captureLayer.renderInContext(UIGraphicsGetCurrentContext()!)
@@ -303,23 +316,23 @@ private class PhotoCell: UICollectionViewCell {
             imageView.image = image
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = ImagePickerViewController.bgColor
         imageView.contentMode = .ScaleAspectFit
-        
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-        
+
         addConstraint(NSLayoutConstraint(item: imageView, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: 0))
         addConstraint(NSLayoutConstraint(item: imageView, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: 0))
         addConstraint(NSLayoutConstraint(item: imageView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: 0))
         addConstraint(NSLayoutConstraint(item: imageView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: 0))
-        
+
         layoutIfNeeded()
     }
-    
+
     override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         let attr = UICollectionViewLayoutAttributes()
         let imageSize = imageView.image!.size
@@ -327,7 +340,7 @@ private class PhotoCell: UICollectionViewCell {
         attr.size = CGSize(width: imageSize.width * scalar, height: imageSize.height * scalar)
         return attr
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -335,23 +348,23 @@ private class PhotoCell: UICollectionViewCell {
 
 private class CameraCell: UICollectionViewCell {
     static let reuseIdentifier = "CameraCell"
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.blackColor()
         initView()
     }
-    
+
     override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         let attr = UICollectionViewLayoutAttributes()
         attr.size = CGSize(width: ImagePickerViewController.expectedCellWidth, height: bounds.size.height)
         return attr
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func initView() {
         dispatch_async(dispatch_get_main_queue()) {
             let borderWidth: CGFloat = ImagePickerViewController.borderWidth
