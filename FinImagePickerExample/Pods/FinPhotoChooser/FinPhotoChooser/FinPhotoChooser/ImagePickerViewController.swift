@@ -17,9 +17,8 @@ public protocol ImagePickerDelegate {
 public class ImagePickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
     
     private static let screenSize = UIScreen.mainScreen().bounds.size
-    private static let pickerHeight: CGFloat = 280
     private static let expectedCellWidth: CGFloat = 240
-    private static let targetSize = CGSize(width: expectedCellWidth, height: pickerHeight)
+    private var targetSize: CGSize { return CGSize(width: ImagePickerViewController.expectedCellWidth, height: pickerHeight) }
     private static let borderWidth: CGFloat = 1
     private static let defaultFetchOptions: PHFetchOptions = {
         let opts = PHFetchOptions()
@@ -28,6 +27,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         }()
     
     private let photoSession = AVCaptureSession()
+    private let pickerHeight: CGFloat
     private let photoSessionPreset: String
     private let stillImageOutput = AVCaptureStillImageOutput()
     private let cachingImageManager = PHCachingImageManager()
@@ -65,10 +65,14 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     // Initialization
     ///////////////////////////////////////
     
-    public init(targetImageSize: CGSize = PHImageManagerMaximumSize, cameraPreset: String = AVCaptureSessionPresetPhoto) {
+    public init(targetImageSize: CGSize = PHImageManagerMaximumSize, cameraPreset: String = AVCaptureSessionPresetPhoto, pickerHeight: CGFloat = 480) {
         self.targetImageSize = targetImageSize
         self.photoSessionPreset = cameraPreset
+        self.pickerHeight = pickerHeight
         super.init(nibName: nil, bundle: nil)
+        let ss = ImagePickerViewController.screenSize
+        pickerContainer.frame = CGRect(x: 0, y: ss.height, width: ss.width, height: pickerHeight)
+        collectionView.frame = CGRect(x: 0, y: 0, width: ss.width, height: pickerHeight)
         setUp()
     }
     
@@ -81,7 +85,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     ///////////////////////////////////////
     
     private let pickerContainer: UIView = {
-        let v = UIView(frame: CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: pickerHeight))
+        let v = UIView(frame: .zero)
         v.backgroundColor = UIColor.whiteColor()
         v.layer.shadowRadius = 2
         v.layer.shadowOpacity = 0.1
@@ -101,10 +105,10 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .Horizontal
-        layout.estimatedItemSize = targetSize
+        layout.estimatedItemSize = CGSize(width: ImagePickerViewController.expectedCellWidth, height: 280)
         layout.minimumInteritemSpacing = borderWidth
         layout.minimumLineSpacing = 0
-        var cv = UICollectionView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: pickerHeight), collectionViewLayout: layout)
+        var cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor.whiteColor()
         return cv
         }()
@@ -158,7 +162,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             if cell.tag != 0 {
                 cachingImageManager.cancelImageRequest(PHImageRequestID(cell.tag))
             }
-            cell.tag = Int(cachingImageManager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: ImagePickerViewController.targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
+            cell.tag = Int(cachingImageManager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
                 cell.image = result
                 })
             return cell
@@ -207,7 +211,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         vc.presentViewController(self, animated: true, completion: nil)
         UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseOut, animations: {
             self.backgroundView.alpha = 1
-            self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -ImagePickerViewController.pickerHeight)
+            self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -self.pickerHeight)
             }, completion: nil)
     }
     
