@@ -24,18 +24,19 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         let opts = PHFetchOptions()
         opts.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
         return opts
-        }()
+    }()
 
-    private let pickerHeight: CGFloat
-    private var targetSize: CGSize { return CGSize(width: ImagePickerViewController.expectedCellWidth, height: pickerHeight) }
     private let photoSession = AVCaptureSession()
     private let photoSessionPreset: String
     private let stillImageOutput = AVCaptureStillImageOutput()
     private let cachingImageManager = PHCachingImageManager()
     private var captureLayer: AVCaptureVideoPreviewLayer!
     private let q = dispatch_queue_create("camera_load_q", DISPATCH_QUEUE_SERIAL)
-    private var dismissOnTap: Bool
+    private let dismissOnTap: Bool
+    
+    private var targetSize: CGSize { return CGSize(width: ImagePickerViewController.expectedCellWidth, height: pickerHeight) }
 
+    public var pickerHeight: CGFloat
     public var delegate: ImagePickerDelegate?
 
     ///////////////////////////////////////
@@ -93,7 +94,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         v.layer.shadowOpacity = 0.1
         v.layer.shadowColor = UIColor.blackColor().CGColor
         return v
-        }()
+    }()
 
     private var backgroundView: UIView = {
         let v = UIView(frame: UIScreen.mainScreen().bounds)
@@ -101,7 +102,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         v.alpha = 0
         v.userInteractionEnabled = true
         return v
-        }()
+    }()
 
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -111,7 +112,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         var cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = ImagePickerViewController.bgColor
         return cv
-        }()
+    }()
 
 
     ///////////////////////////////////////
@@ -202,7 +203,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             self.backgroundView.alpha = 0
             self.pickerContainer.transform = CGAffineTransformIdentity
             }) { _ in
-                self.dismissViewControllerAnimated(false, completion: nil)
+                self.removeFromParentViewController()
                 self.pickerContainer.removeFromSuperview()
                 self.backgroundView.removeFromSuperview()
         }
@@ -214,7 +215,9 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         let window = UIApplication.sharedApplication().keyWindow!
         if self.dismissOnTap { window.addSubview(backgroundView) }
         window.addSubview(pickerContainer)
-        vc.presentViewController(self, animated: false, completion: nil)
+        vc.addChildViewController(self)
+        didMoveToParentViewController(vc)
+        _ = self.view
         UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: {
             self.backgroundView.alpha = 1
             self.pickerContainer.transform = CGAffineTransformMakeTranslation(0, -self.pickerHeight)
