@@ -32,4 +32,4 @@ class MyVC: UIViewController, ImagePickerDelegate {
 #### Cocoapods
 Include via your `Podfile`:
 
-`pod 'FinPhotoChooser', '~> 2.0.5'`
+`pod 'FinPhotoChooser', '~> 2.2.0'`
