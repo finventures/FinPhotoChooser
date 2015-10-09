@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8237F7423256A46D2CD999BD"
+               BlueprintIdentifier = "1529E40E49D980B47B19ACF6"
                BuildableName = "FinPhotoChooser.framework"
                BlueprintName = "FinPhotoChooser"
                ReferencedContainer = "container:Pods.xcodeproj">

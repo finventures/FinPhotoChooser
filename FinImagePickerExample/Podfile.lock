@@ -2,7 +2,11 @@ PODS:
   - FinPhotoChooser (2.0.5)
 
 DEPENDENCIES:
-  - FinPhotoChooser (~> 2.0.3)
+  - FinPhotoChooser (from `./..`)
+
+EXTERNAL SOURCES:
+  FinPhotoChooser:
+    :path: "./.."
 
 SPEC CHECKSUMS:
   FinPhotoChooser: d70e7d5174be563e5018e9b3f57d96859c055ec7
