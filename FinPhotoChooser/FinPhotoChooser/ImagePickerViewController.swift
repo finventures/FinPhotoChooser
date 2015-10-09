@@ -36,7 +36,11 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     
     private var targetSize: CGSize { return CGSize(width: ImagePickerViewController.expectedCellWidth, height: pickerHeight) }
 
-    public var pickerHeight: CGFloat
+    public var pickerHeight: CGFloat {
+        didSet {
+            self.setFrames()
+        }
+    }
     public var delegate: ImagePickerDelegate?
 
     ///////////////////////////////////////
@@ -239,15 +243,17 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             }
         }
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
-
+        setFrames()
+        if !dismissOnTap {
+            pickerContainer.layer.shadowOpacity = 0.0
+        }
+    }
+    
+    private func setFrames() {
         let ss = ImagePickerViewController.screenSize
         pickerContainer.frame = CGRect(x: 0, y: ss.height, width: ss.width, height: pickerHeight)
         collectionView.frame = CGRect(x: 0, y: 0, width: ss.width, height: pickerHeight)
         (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = CGSize(width: ImagePickerViewController.expectedCellWidth, height: pickerHeight)
-
-        if !dismissOnTap {
-            pickerContainer.layer.shadowOpacity = 0.0
-        }
     }
 
     private func fetchImageAssets() {

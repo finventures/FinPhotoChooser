@@ -38,5 +38,6 @@ class ViewController: UIViewController, ImagePickerDelegate {
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
+    
 }
 
