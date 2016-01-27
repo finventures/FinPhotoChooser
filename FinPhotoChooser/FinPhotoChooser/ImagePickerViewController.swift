@@ -77,9 +77,8 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
         self.targetImageSize = targetImageSize
         self.photoSessionPreset = cameraPreset
         self.pickerHeight = pickerHeight
-
         super.init(nibName: nil, bundle: nil)
-
+        automaticallyAdjustsScrollViewInsets = true
         setUp()
     }
 
@@ -130,16 +129,14 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        dispatch_async(dispatch_get_main_queue()) {
-            self.collectionView.delegate = self
-            self.collectionView.dataSource = self
-            self.collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
-            self.collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
-            self.view.backgroundColor = UIColor.clearColor()
-            self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
-
-            self.pickerContainer.addSubview(self.collectionView)
-        }
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
+        self.collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
+        self.view.backgroundColor = UIColor.clearColor()
+        self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
+        
+        self.pickerContainer.addSubview(self.collectionView)
     }
 
     ///////////////////////////////////////
@@ -170,12 +167,12 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
             return cell
         } else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PhotoCell.reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
-            if cell.tag != 0 {
-                cachingImageManager.cancelImageRequest(PHImageRequestID(cell.tag))
-            }
-            cell.tag = Int(cachingImageManager.requestImageForAsset(recentPhotos[indexPath.row], targetSize: targetSize, contentMode: .AspectFit, options: nil) { (result, _) in
+            let o = PHImageRequestOptions()
+            o.synchronous = true
+            let photo = recentPhotos[indexPath.row]
+            cachingImageManager.requestImageForAsset(photo, targetSize: targetSize, contentMode: .AspectFit, options: o) { (result, _) in
                 cell.image = result
-                })
+            }
             return cell
         } else {
             fatalError("Don't know about section \(indexPath.section)")
@@ -252,6 +249,7 @@ public class ImagePickerViewController: UIViewController, UICollectionViewDataSo
     private func setFrames() {
         let ss = ImagePickerViewController.screenSize
         pickerContainer.frame = CGRect(x: 0, y: ss.height, width: ss.width, height: pickerHeight)
+        collectionView.collectionViewLayout.invalidateLayout()
         collectionView.frame = CGRect(x: 0, y: 0, width: ss.width, height: pickerHeight)
         (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = CGSize(width: ImagePickerViewController.expectedCellWidth, height: pickerHeight)
     }
@@ -332,27 +330,25 @@ private class PhotoCell: UICollectionViewCell {
         imageView.contentMode = .ScaleAspectFit
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(imageView)
+        contentView.addSubview(imageView)
 
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: 0))
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: 0))
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: 0))
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: 0))
+        addConstraint(NSLayoutConstraint(item: imageView, attribute: .Left, relatedBy: .Equal, toItem: contentView, attribute: .Left, multiplier: 1.0, constant: 0))
+        addConstraint(NSLayoutConstraint(item: imageView, attribute: .Right, relatedBy: .Equal, toItem: contentView, attribute: .Right, multiplier: 1.0, constant: 0))
+        addConstraint(NSLayoutConstraint(item: imageView, attribute: .Top, relatedBy: .Equal, toItem: contentView, attribute: .Top, multiplier: 1.0, constant: 0))
+        addConstraint(NSLayoutConstraint(item: imageView, attribute: .Bottom, relatedBy: .Equal, toItem: contentView, attribute: .Bottom, multiplier: 1.0, constant: 0))
 
         layoutIfNeeded()
     }
 
     override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        let attr = UICollectionViewLayoutAttributes()
+        let attr = super.preferredLayoutAttributesFittingAttributes(layoutAttributes)
         let imageSize = imageView.image!.size
-        let scalar = imageView.bounds.size.height / imageSize.height
-        attr.size = CGSize(width: imageSize.width * scalar, height: imageSize.height * scalar)
+        let scalar = imageView.bounds.height / imageSize.height
+        attr.size = CGSize(width: imageSize.width * scalar, height: attr.size.height)
         return attr
     }
 
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
 private class CameraCell: UICollectionViewCell {
@@ -366,7 +362,7 @@ private class CameraCell: UICollectionViewCell {
 
     override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         let attr = UICollectionViewLayoutAttributes()
-        attr.size = CGSize(width: ImagePickerViewController.expectedCellWidth, height: bounds.size.height)
+        attr.size = CGSize(width: ImagePickerViewController.expectedCellWidth, height: contentView.bounds.height)
         return attr
     }
 
@@ -375,20 +371,18 @@ private class CameraCell: UICollectionViewCell {
     }
 
     private func initView() {
-        dispatch_async(dispatch_get_main_queue()) {
-            let borderWidth: CGFloat = ImagePickerViewController.borderWidth
-            let border = UIView(frame: CGRect(x: self.bounds.size.width - borderWidth, y: 0, width: borderWidth, height: self.bounds.size.height))
-            border.backgroundColor = ImagePickerViewController.bgColor
-            self.contentView.addSubview(border)
-            let sendColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
-            var sendImg = UIImage(named: "ic_send_48pt.png", inBundle: NSBundle(forClass: ImagePickerViewController.self), compatibleWithTraitCollection: nil)!
-            sendImg = UIImage(CGImage: sendImg.CGImage!, scale: 3, orientation: sendImg.imageOrientation)
-            sendImg = sendImg.imageWithRenderingMode(.AlwaysTemplate)
-            let send = UIImageView(image: sendImg)
-            send.tintColor = sendColor
-            self.contentView.addSubview(send)
-            send.center = self.convertPoint(self.center, toView: self.superview)
-        }
+        let borderWidth: CGFloat = ImagePickerViewController.borderWidth
+        let border = UIView(frame: CGRect(x: self.bounds.size.width - borderWidth, y: 0, width: borderWidth, height: contentView.bounds.size.height))
+        border.backgroundColor = ImagePickerViewController.bgColor
+        self.contentView.addSubview(border)
+        let sendColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
+        var sendImg = UIImage(named: "ic_send_48pt.png", inBundle: NSBundle(forClass: ImagePickerViewController.self), compatibleWithTraitCollection: nil)!
+        sendImg = UIImage(CGImage: sendImg.CGImage!, scale: 3, orientation: sendImg.imageOrientation)
+        sendImg = sendImg.imageWithRenderingMode(.AlwaysTemplate)
+        let send = UIImageView(image: sendImg)
+        send.tintColor = sendColor
+        self.contentView.addSubview(send)
+        send.center = self.convertPoint(self.center, toView: self.superview)
     }
 }
 
