@@ -211,7 +211,9 @@ public class ImagePickerViewController: UIView, UICollectionViewDataSource, UICo
         if photoSession.canAddOutput(stillImageOutput) {
             photoSession.addOutput(stillImageOutput)
         }
-        photoSession.sessionPreset = photoSessionPreset
+        if photoSession.canSetSessionPreset(photoSessionPreset) {
+            photoSession.sessionPreset = photoSessionPreset
+        }
 
         photoSession.startRunning()
         captureLayer = AVCaptureVideoPreviewLayer(session: photoSession)
