@@ -12,8 +12,11 @@ import FinPhotoChooser
 class ViewController: UIViewController, ImagePickerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var triggerButton: UIButton!
-    private let pc = ImagePickerViewController()
+    private let pc: ImagePickerView = {
+        let screen = UIScreen.mainScreen().bounds
+        let v = ImagePickerView(frame: CGRect(x: 0, y: 0, width: screen.width, height: 255))
+        return v
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,13 +25,12 @@ class ViewController: UIViewController, ImagePickerDelegate {
         imageView.layer.cornerRadius = 5
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
-        triggerButton.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
-        triggerButton.layer.cornerRadius = 3
-        triggerButton.setTitle("🔥🌄📷🔥", forState: .Normal)
     }
     
-    @IBAction func showChooser(sender: AnyObject) {
-        pc.show(fromVc: self)
+    override var inputView: UIView? { return pc }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
     }
     
     func didSelectImage(image: UIImage) {

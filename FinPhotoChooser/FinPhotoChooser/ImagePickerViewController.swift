@@ -14,7 +14,7 @@ public protocol ImagePickerDelegate {
     func didSelectImage(image: UIImage)
 }
 
-public class ImagePickerViewController: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
+public class ImagePickerView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
 
     private static let screenSize = UIScreen.mainScreen().bounds.size
     private static let expectedCellWidth: CGFloat = 240
@@ -34,7 +34,7 @@ public class ImagePickerViewController: UIView, UICollectionViewDataSource, UICo
     private let q = dispatch_queue_create("camera_load_q", DISPATCH_QUEUE_SERIAL)
     private let dismissOnTap: Bool
     
-    private var targetSize: CGSize { return CGSize(width: ImagePickerViewController.expectedCellWidth, height: frame.height) }
+    private var targetSize: CGSize { return CGSize(width: ImagePickerView.expectedCellWidth, height: frame.height) }
 
     public var delegate: ImagePickerDelegate?
 
@@ -104,7 +104,7 @@ public class ImagePickerViewController: UIView, UICollectionViewDataSource, UICo
         layout.minimumInteritemSpacing = borderWidth
         layout.minimumLineSpacing = 0
         var cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = ImagePickerViewController.bgColor
+        cv.backgroundColor = ImagePickerView.bgColor
         return cv
     }()
 
@@ -184,12 +184,12 @@ public class ImagePickerViewController: UIView, UICollectionViewDataSource, UICo
         didSet {
             collectionView.collectionViewLayout.invalidateLayout()
             collectionView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-            (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = CGSize(width: ImagePickerViewController.expectedCellWidth, height: frame.height)
+            (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = CGSize(width: ImagePickerView.expectedCellWidth, height: frame.height)
         }
     }
 
     private func fetchImageAssets() {
-        let photos = PHAsset.fetchAssetsWithMediaType(.Image, options: ImagePickerViewController.defaultFetchOptions)
+        let photos = PHAsset.fetchAssetsWithMediaType(.Image, options: ImagePickerView.defaultFetchOptions)
         let max = min(maxPhotoCount, photos.count)
         let indexes = NSIndexSet(indexesInRange: NSMakeRange(0, max))
         recentPhotos = photos.objectsAtIndexes(indexes).map { $0 as! PHAsset }
@@ -258,7 +258,7 @@ private class PhotoCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = ImagePickerViewController.bgColor
+        backgroundColor = ImagePickerView.bgColor
         imageView.contentMode = .ScaleAspectFit
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -294,7 +294,7 @@ private class CameraCell: UICollectionViewCell {
 
     override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         let attr = UICollectionViewLayoutAttributes()
-        attr.size = CGSize(width: ImagePickerViewController.expectedCellWidth, height: contentView.bounds.height)
+        attr.size = CGSize(width: ImagePickerView.expectedCellWidth, height: contentView.bounds.height)
         return attr
     }
 
@@ -303,12 +303,12 @@ private class CameraCell: UICollectionViewCell {
     }
 
     private func initView() {
-        let borderWidth: CGFloat = ImagePickerViewController.borderWidth
+        let borderWidth: CGFloat = ImagePickerView.borderWidth
         let border = UIView(frame: CGRect(x: self.bounds.size.width - borderWidth, y: 0, width: borderWidth, height: contentView.bounds.size.height))
-        border.backgroundColor = ImagePickerViewController.bgColor
+        border.backgroundColor = ImagePickerView.bgColor
         self.contentView.addSubview(border)
         let sendColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
-        var sendImg = UIImage(named: "ic_send_48pt.png", inBundle: NSBundle(forClass: ImagePickerViewController.self), compatibleWithTraitCollection: nil)!
+        var sendImg = UIImage(named: "ic_send_48pt.png", inBundle: NSBundle(forClass: ImagePickerView.self), compatibleWithTraitCollection: nil)!
         sendImg = UIImage(CGImage: sendImg.CGImage!, scale: 3, orientation: sendImg.imageOrientation)
         sendImg = sendImg.imageWithRenderingMode(.AlwaysTemplate)
         let send = UIImageView(image: sendImg)
