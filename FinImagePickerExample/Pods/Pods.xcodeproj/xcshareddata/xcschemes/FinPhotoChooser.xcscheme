@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '83736902CF59397C01EA95A6'
+               BlueprintIdentifier = '70DFE2BBDF3C98D81A992698'
                BlueprintName = 'FinPhotoChooser'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'FinPhotoChooser.framework'>

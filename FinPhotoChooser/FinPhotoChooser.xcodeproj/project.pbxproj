@@ -10,7 +10,7 @@
 		E866CD371B859EB40005C9FF /* FinPhotoChooser.h in Headers */ = {isa = PBXBuildFile; fileRef = E866CD361B859EB40005C9FF /* FinPhotoChooser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E866CD3D1B859EB40005C9FF /* FinPhotoChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E866CD311B859EB40005C9FF /* FinPhotoChooser.framework */; };
 		E866CD441B859EB40005C9FF /* FinPhotoChooserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E866CD431B859EB40005C9FF /* FinPhotoChooserTests.swift */; };
-		E866CD5A1B85ADF00005C9FF /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E866CD591B85ADF00005C9FF /* ImagePickerViewController.swift */; };
+		E866CD5A1B85ADF00005C9FF /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E866CD591B85ADF00005C9FF /* ImagePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +30,7 @@
 		E866CD3C1B859EB40005C9FF /* FinPhotoChooserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinPhotoChooserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E866CD421B859EB40005C9FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E866CD431B859EB40005C9FF /* FinPhotoChooserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinPhotoChooserTests.swift; sourceTree = "<group>"; };
-		E866CD591B85ADF00005C9FF /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
+		E866CD591B85ADF00005C9FF /* ImagePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +73,7 @@
 		E866CD331B859EB40005C9FF /* FinPhotoChooser */ = {
 			isa = PBXGroup;
 			children = (
-				E866CD591B85ADF00005C9FF /* ImagePickerViewController.swift */,
+				E866CD591B85ADF00005C9FF /* ImagePickerView.swift */,
 				E866CD361B859EB40005C9FF /* FinPhotoChooser.h */,
 				E866CD341B859EB40005C9FF /* Supporting Files */,
 			);
@@ -213,7 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E866CD5A1B85ADF00005C9FF /* ImagePickerViewController.swift in Sources */,
+				E866CD5A1B85ADF00005C9FF /* ImagePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 PODS:
-  - FinPhotoChooser (2.2.2)
+  - FinPhotoChooser (3.1.1)
 
 DEPENDENCIES:
   - FinPhotoChooser (from `./..`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: "./.."
 
 SPEC CHECKSUMS:
-  FinPhotoChooser: f8dffecd16f7022cb317a89a0c170a6cd71120ec
+  FinPhotoChooser: e7c8da78eaf221511c0f27e0f5b39505f7918dc4
 
 COCOAPODS: 0.39.0
