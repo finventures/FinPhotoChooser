@@ -77,7 +77,6 @@ public class ImagePickerView: UIView, UICollectionViewDataSource, UICollectionVi
         self.collectionView.dataSource = self
         self.collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
         self.collectionView.registerClass(CameraCell.self, forCellWithReuseIdentifier: CameraCell.reuseIdentifier)
-        self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:"onOutsideTap"))
         
         addSubview(self.collectionView)
     }
