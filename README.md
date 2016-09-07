@@ -30,7 +30,7 @@ iOS photo chooser optimized for swiftness
   }
 ```
 
-#### Cocoapods
+#### CocoaPods
 Include via your `Podfile`:
 
 `pod 'FinPhotoChooser', '~> 2.2.0'`
