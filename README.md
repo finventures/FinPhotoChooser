@@ -11,7 +11,11 @@ iOS photo chooser optimized for swiftness
   - Photos framework permissions
 
 #### Usage
-(requires Xcode 7, written with Swift 2)
+
+The current version requires Xcode 8, written with Swift 3
+
+(3.2.0 is the latest Swift 2.2 version)
+
   ```swift
   class MyVC: UIViewController, ImagePickerDelegate {
 
@@ -33,4 +37,4 @@ iOS photo chooser optimized for swiftness
 #### CocoaPods
 Include via your `Podfile`:
 
-`pod 'FinPhotoChooser', '~> 2.2.0'`
+`pod 'FinPhotoChooser', '~> 4.0.0'`
