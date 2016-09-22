@@ -176,7 +176,11 @@ open class ImagePickerView: UIView, UICollectionViewDataSource, UICollectionView
             }
         }
         PHPhotoLibrary.shared().register(self)
-        initCamera()
+        // TODO: iOS 10 first update will probably fix the bug, but currently trying to use
+        // AVCapture stuff crashes on simulator, so only do it on real device.
+        if (TARGET_OS_SIMULATOR == 0) {
+            initCamera()
+        }
     }
     
     override open var frame: CGRect {
@@ -220,8 +224,10 @@ open class ImagePickerView: UIView, UICollectionViewDataSource, UICollectionView
     }
 
     fileprivate func showCameraPreview(_ layer: CALayer) {
-        captureLayer.frame = layer.bounds
-        layer.addSublayer(self.captureLayer)
+        if (TARGET_OS_SIMULATOR == 0) {
+            captureLayer.frame = layer.bounds
+            layer.addSublayer(self.captureLayer)
+        }
     }
 
     fileprivate func capturePhoto(_ handler: @escaping (UIImage) -> ()) {
