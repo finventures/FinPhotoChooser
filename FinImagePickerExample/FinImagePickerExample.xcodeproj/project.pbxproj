@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		62AA0E1861A859737E753A5B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528839DDAD8779D660138292 /* Pods.framework */; };
+		89E2467CBBEEA8F9280990C2 /* Pods_FinImagePickerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0203F1EFA86A08513881322 /* Pods_FinImagePickerExample.framework */; };
 		C6A536E01B899486004AC2BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A536DF1B899486004AC2BD /* AppDelegate.swift */; };
 		C6A536E21B899486004AC2BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A536E11B899486004AC2BD /* ViewController.swift */; };
 		C6A536E51B899486004AC2BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6A536E31B899486004AC2BD /* Main.storyboard */; };
@@ -27,8 +27,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		095DC4A9D6AC33007FDC8906 /* Pods-FinImagePickerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinImagePickerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-FinImagePickerExample/Pods-FinImagePickerExample.release.xcconfig"; sourceTree = "<group>"; };
 		528839DDAD8779D660138292 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5FB4238D037BEF6FEDD0894F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C0203F1EFA86A08513881322 /* Pods_FinImagePickerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FinImagePickerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A536DA1B899486004AC2BD /* FinImagePickerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinImagePickerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A536DE1B899486004AC2BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6A536DF1B899486004AC2BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,7 +40,7 @@
 		C6A536EF1B899486004AC2BD /* FinImagePickerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinImagePickerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A536F41B899486004AC2BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6A536F51B899486004AC2BD /* FinImagePickerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinImagePickerExampleTests.swift; sourceTree = "<group>"; };
-		D2D5AD69631CD1F0B84F091E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C9AC0FC4B9D56853C3502D8F /* Pods-FinImagePickerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinImagePickerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FinImagePickerExample/Pods-FinImagePickerExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62AA0E1861A859737E753A5B /* Pods.framework in Frameworks */,
+				89E2467CBBEEA8F9280990C2 /* Pods_FinImagePickerExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,15 +66,16 @@
 			isa = PBXGroup;
 			children = (
 				528839DDAD8779D660138292 /* Pods.framework */,
+				C0203F1EFA86A08513881322 /* Pods_FinImagePickerExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3D128840785F00F636D35310 /* Pods */ = {
+		5875409C7058199E14E6B111 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5FB4238D037BEF6FEDD0894F /* Pods.debug.xcconfig */,
-				D2D5AD69631CD1F0B84F091E /* Pods.release.xcconfig */,
+				C9AC0FC4B9D56853C3502D8F /* Pods-FinImagePickerExample.debug.xcconfig */,
+				095DC4A9D6AC33007FDC8906 /* Pods-FinImagePickerExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -84,8 +86,8 @@
 				C6A536DC1B899486004AC2BD /* FinImagePickerExample */,
 				C6A536F21B899486004AC2BD /* FinImagePickerExampleTests */,
 				C6A536DB1B899486004AC2BD /* Products */,
-				3D128840785F00F636D35310 /* Pods */,
 				0194A0FA6A2B95AA88B0D484 /* Frameworks */,
+				5875409C7058199E14E6B111 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,12 +145,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C6A536F91B899486004AC2BD /* Build configuration list for PBXNativeTarget "FinImagePickerExample" */;
 			buildPhases = (
-				484BDE17347E3064927E6C86 /* Check Pods Manifest.lock */,
+				C4E261554EE24799C8851083 /* [CP] Check Pods Manifest.lock */,
 				C6A536D61B899486004AC2BD /* Sources */,
 				C6A536D71B899486004AC2BD /* Frameworks */,
 				C6A536D81B899486004AC2BD /* Resources */,
-				82C053657FA0334464631997 /* Embed Pods Frameworks */,
-				69886FE4A01AEA2BA6E8FA2F /* Copy Pods Resources */,
+				2267A0D54E050312B2DB9D84 /* [CP] Embed Pods Frameworks */,
+				9835BDD38E764B3CFE497CDC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -184,14 +186,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Fin Ventures";
 				TargetAttributes = {
 					C6A536D91B899486004AC2BD = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0800;
 					};
 					C6A536EE1B899486004AC2BD = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0800;
 						TestTargetID = C6A536D91B899486004AC2BD;
 					};
 				};
@@ -236,49 +240,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		484BDE17347E3064927E6C86 /* Check Pods Manifest.lock */ = {
+		2267A0D54E050312B2DB9D84 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FinImagePickerExample/Pods-FinImagePickerExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		69886FE4A01AEA2BA6E8FA2F /* Copy Pods Resources */ = {
+		9835BDD38E764B3CFE497CDC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FinImagePickerExample/Pods-FinImagePickerExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		82C053657FA0334464631997 /* Embed Pods Frameworks */ = {
+		C4E261554EE24799C8851083 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -344,14 +348,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -389,8 +396,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -409,6 +418,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -416,23 +426,29 @@
 		};
 		C6A536FA1B899486004AC2BD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5FB4238D037BEF6FEDD0894F /* Pods.debug.xcconfig */;
+			baseConfigurationReference = C9AC0FC4B9D56853C3502D8F /* Pods-FinImagePickerExample.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FinImagePickerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ventures.fin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		C6A536FB1B899486004AC2BD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D2D5AD69631CD1F0B84F091E /* Pods.release.xcconfig */;
+			baseConfigurationReference = 095DC4A9D6AC33007FDC8906 /* Pods-FinImagePickerExample.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FinImagePickerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ventures.fin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -450,7 +466,9 @@
 				);
 				INFOPLIST_FILE = FinImagePickerExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ventures.fin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinImagePickerExample.app/FinImagePickerExample";
 			};
 			name = Debug;
@@ -465,7 +483,9 @@
 				);
 				INFOPLIST_FILE = FinImagePickerExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ventures.fin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinImagePickerExample.app/FinImagePickerExample";
 			};
 			name = Release;

@@ -12,8 +12,8 @@ import FinPhotoChooser
 class ViewController: UIViewController, ImagePickerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
-    private let pc: ImagePickerView = {
-        let screen = UIScreen.mainScreen().bounds
+    fileprivate let pc: ImagePickerView = {
+        let screen = UIScreen.main.bounds
         let v = ImagePickerView(frame: CGRect(x: 0, y: 0, width: screen.width, height: 255))
         return v
     }()
@@ -24,21 +24,21 @@ class ViewController: UIViewController, ImagePickerDelegate {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 5
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
+        imageView.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
     }
     
     override var inputView: UIView? { return pc }
     
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return true
     }
     
-    func didSelectImage(image: UIImage) {
+    func didSelectImage(_ image: UIImage) {
         imageView.image = image
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
 }
